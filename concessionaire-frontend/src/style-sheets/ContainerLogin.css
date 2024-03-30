@@ -1,0 +1,32 @@
+.contenedor-login {
+    width: 80%;
+    height: 80%;
+    margin: 60px auto;
+    display: flex;
+
+    border-radius: 40px;
+
+    background-color: lightblue;
+    padding: 50px;
+}
+
+.Bienvenida {
+    width: 70vh;
+    height: 70vh;
+
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+
+    font-weight: bold;
+    font-size: calc(15px + 2vmin);
+}
+
+.Bienvenida p{
+    margin-top: 150px;
+}
+
+.imagen1 {
+    width: 40vh;
+    height: 70vh;
+}
