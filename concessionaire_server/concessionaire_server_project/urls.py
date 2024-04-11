@@ -1,3 +1,5 @@
+from django.conf.urls import include
+
 """
 URL configuration for concessionaire_server_project project.
 
@@ -17,6 +19,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from concessionaire_api import api_views
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('api/view/', include('concessionaire_api.urls'), name='api'),
+    path('admin/', admin.site.urls)
 ]
