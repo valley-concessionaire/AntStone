@@ -1,0 +1,26 @@
+.sign-up {
+    width: 180vh;
+    height: 70vh;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+    border-radius: 0 50px 50px 0;
+    padding: 3%;
+
+    font-size: calc(15px + 2vmin);
+    font-weight: bold;
+    user-select: none;
+}
+
+.sign-up h1 {
+    margin: 5% 0 7% 0;
+}
+
+.sign-up section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+    font-size: calc(4px + 2vmin);
+}
