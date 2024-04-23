@@ -46,7 +46,7 @@ export function LoginPage() {
       </div>
       <div className="hidden bg-muted lg:block">
         <img
-          src="https://cdn.discordapp.com/attachments/948713616222343168/1228207151076474910/OIG1.jpg?ex=6628910b&is=66273f8b&hm=516da80f55f77b0109220c852aa8ce196c7ed04f9de5e9d32432f03a236025c2&"
+          src="https://cdn.discordapp.com/attachments/948713616222343168/1232340339289882644/image_processing20210904-5562-uphqei.gif?ex=662919e0&is=6627c860&hm=6ccc133c39518c46a20dfc59c603173f6d703835ccf88671ff706073ca0b7241&"
           alt="Image"
           width="1920"
           height="1080"
