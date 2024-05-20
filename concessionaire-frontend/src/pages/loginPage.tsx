@@ -1,6 +1,7 @@
 import { Button } from "../components/ui/button"
 import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label"
+import MiImagen from "../images/LoginPageImg.jpg"
 
 export function LoginPage() {
   return (
@@ -46,14 +47,13 @@ export function LoginPage() {
       </div>
       <div className="hidden bg-muted lg:block">
         <img
-          src="https://cdn.discordapp.com/attachments/948713616222343168/1232340339289882644/image_processing20210904-5562-uphqei.gif?ex=662919e0&is=6627c860&hm=6ccc133c39518c46a20dfc59c603173f6d703835ccf88671ff706073ca0b7241&"
+          src={MiImagen}
           alt="Image"
-          width="1920"
-          height="1080"
-          className="h-full w-full object-cover dark:brightness-[0.8] dark:grayscale"
+          //width="1920"
+          //height="1080"
+          className="h-full w-full object-cover dark:brightness-[0.8] grayscale"
         />
       </div>
     </div>
   )
 }
-
