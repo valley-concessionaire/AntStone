@@ -11,15 +11,19 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(_('active'), default=True)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
 
-    # Add unique related_name arguments to resolve clashes
-    groups = models.ManyToManyField(Group, verbose_name=_('groups'), blank=True, related_name='customuser_groups')
-    user_permissions = models.ManyToManyField(Permission, verbose_name=_('user permissions'), blank=True, related_name='customuser_permissions')
+    groups = models.ManyToManyField(Group, verbose_name=_('groups'), blank=True, related_name='%(class)s_groups')
+    user_permissions = models.ManyToManyField(Permission, verbose_name=_('user permissions'), blank=True, related_name='%(class)s_permissions')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
         return self.email
+
+    class Meta:
+        abstract = True
+        verbose_name = _('custom user')
+        verbose_name_plural = _('custom users')
 
 class Capataz(CustomUser):
     experiencia = models.CharField(max_length=255)
@@ -46,20 +50,17 @@ class Gerente(CustomUser):
         verbose_name_plural = _('gerentes')
 
 class Peon(models.Model):
-    # No additional fields, only the default primary key (id)
-
     def __str__(self):
         return f"Peon {self.pk}"
 
-class AyudanteDeAlbanil(models.Model):
-    # No additional fields, only the default primary key (id)
-
-    def __str__(self):
-        return f"AyudanteDeAlbanil {self.pk}"
-
-# Custom permissions / Maybe not Necessary
-class CustomPermission(Permission):
     class Meta:
-        proxy = True
-        verbose_name = _('custom permission')
-        verbose_name_plural = _('custom permissions')
+        verbose_name = _('peon')
+        verbose_name_plural = _('peones')
+
+class AyudanteDeAlbanil(models.Model):
+    def __str__(self):
+        return f"Ayudante De Albanil {self.pk}"
+
+    class Meta:
+        verbose_name = _('ayudante de albanil')
+        verbose_name_plural = _('ayudantes de albanil')
