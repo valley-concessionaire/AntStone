@@ -159,8 +159,8 @@ SIMPLE_JWT = {
 }
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',  # Default backend
-    'users.backends.EmailBackend',  # Custom backend to authenticate users using email
+    'django.contrib.auth.backends.ModelBackend',
+    'users.backends.EmailBackend',
 ]
 
-AUTH_USER_MODEL = 'users.CustomUser'  # Assuming 'users' is the app name where CustomUser is defined
+AUTH_USER_MODEL = 'users.CustomUser'

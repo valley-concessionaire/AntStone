@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from users.models import DirectorDeObra, Capataz, Gerente, Peon, AyudanteDeAlbanil
 
-# Define estado choices
 ESTADO_CHOICES = [
     ('PENDING', 'Pending'),
     ('IN_PROGRESS', 'In Progress'),
