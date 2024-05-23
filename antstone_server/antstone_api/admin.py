@@ -1,4 +1,4 @@
-# concessionaire_api/admin.py
+# antstone_api/admin.py
 
 from django.contrib import admin
 from .models import Obra, TareaDeObra, AvanceDeTarea
