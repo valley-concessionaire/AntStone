@@ -1,7 +1,7 @@
 from django.conf.urls import include
 
 """
-URL configuration for concessionaire_server_project project.
+URL configuration for antstone_server_project project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -21,6 +21,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('api/users/', include('users.urls')),  # Include the API endpoints from the users app
-    path('api/', include('concessionaire_api.urls')),  # Include the API endpoints from the concessionaire_api app
+    path('api/', include('antstone_api.urls')),  # Include the API endpoints from the antstone_api app
     path('admin/', admin.site.urls),
 ]

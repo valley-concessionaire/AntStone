@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .viewsets import ObraViewSet, TareaDeObraViewSet, AvanceDeTareaViewSet
-from concessionaire_api import api_views
+from antstone_api import api_views
 
 router = DefaultRouter()
 router.register(r'obras', ObraViewSet, basename='obra')
