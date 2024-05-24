@@ -1,7 +1,7 @@
 from django.conf.urls import include
 
 """
-URL configuration for concessionaire_server_project project.
+URL configuration for antstone_server_project project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -17,11 +17,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-
-from concessionaire_api import api_views
+from django.urls import path, include
 
 urlpatterns = [
-    path('api/view/', include('concessionaire_api.urls'), name='api'),
-    path('admin/', admin.site.urls)
+    path('api/users/', include('users.urls')),  # Include the API endpoints from the users app
+    path('api/', include('antstone_api.urls')),  # Include the API endpoints from the antstone_api app
+    path('admin/', admin.site.urls),
 ]

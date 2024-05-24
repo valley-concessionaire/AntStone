@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ConcessionaireApiConfig(AppConfig):
+class AntstoneApiConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'concessionaire_api'
+    name = 'antstone_api'
