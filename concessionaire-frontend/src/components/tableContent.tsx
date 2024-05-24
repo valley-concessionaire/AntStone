@@ -15,10 +15,22 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card"
+import { ConfObra } from "./confObra"
+import { Fragment, useEffect, useState } from "react"
 
 export function TableConf() {
+  const [showConfObra, setShowConfObra] = useState(false)
+  useEffect(() => {
+    if (showConfObra) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    return () => document.body.classList.remove('overflow-hidden');
+  }, [showConfObra]);
   return (
 
+  <Fragment>
               <Card x-chunk="dashboard-06-chunk-0">
                 <CardHeader>
                   <CardTitle>Products</CardTitle>
@@ -29,7 +41,7 @@ export function TableConf() {
                 <CardContent>
                     <Table>
                       <TableHeader>
-                        <TableRow>
+                        <TableRow onClick={() => setShowConfObra(true) }>
                           <TableHead>Customer</TableHead>
                           <TableHead className="hidden sm:table-cell">
                             Type
@@ -206,6 +218,7 @@ export function TableConf() {
                         </TableRow>
                       </TableBody>
                     </Table>
+          <ConfObra isVisible={showConfObra} onClose={() => setShowConfObra(false)} />
                 </CardContent>
                 <CardFooter>
                   <div className="text-xs text-muted-foreground">
@@ -214,6 +227,7 @@ export function TableConf() {
                   </div>
                 </CardFooter>
               </Card>
+  </Fragment>
   )
 }
 

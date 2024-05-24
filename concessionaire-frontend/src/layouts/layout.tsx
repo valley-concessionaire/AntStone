@@ -18,21 +18,19 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "../components/ui/dropdown-menu"
 import { Input } from "../components/ui/input"
 import { NavbarMobile } from "../components/navbarMobile"
-import { ConfObra } from "../components/confObra"
 import { Fragment, useState } from "react"
+import { ConfObra } from "../components/confObra"
 
 interface LayoutProps {
   children: React.ReactNode
 }
 
 export function Layout({ children }: LayoutProps) {
-  const [showConfObra, setShowConfObra] = useState(false)
   return (
-  <Fragment>
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
         <Navbar />
@@ -69,7 +67,7 @@ export function Layout({ children }: LayoutProps) {
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
+              <Button 
                 variant="outline"
                 size="icon"
                 className="overflow-hidden rounded-full"
@@ -95,11 +93,9 @@ export function Layout({ children }: LayoutProps) {
         </header>
         <main>
           {children}
-          <ConfObra isVisible={true} />
         </main>
       </div>
     </div>
-  </Fragment>
   )
 }
 
