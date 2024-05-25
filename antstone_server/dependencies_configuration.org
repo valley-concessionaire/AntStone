@@ -1,0 +1,102 @@
+* Dependencies installations and configurations
+
+** drf-yasg
+ To configure Swagger API documentation for your Django REST framework (DRF) APIs.
+ 
+*** Package Installation
+
+For adding the package to your project:
+
+#+BEGIN_SRC sh
+  pip install drf-yasg
+#+END_SRC
+
+*** Configurations
+**** Add drf-yasg to Installed Apps
+
+#+BEGIN_SRC python
+  INSTALLED_APPS = [
+      ...
+      'rest_framework',
+      'drf_yasg',
+      'the_app',
+  ]
+#+END_SRC 
+
+**** Create a Swagger View (schemas
+
+Creates *urls_swagger.py* file in the main project directory.
+
+#+BEGIN_SRC python
+  from rest_framework import permissions
+  from drf_yasg.views import get_schema_view
+  from drf_yasg import openapi
+  from django.urls import path, re_path
+
+  schema_view = get_schema_view(
+      openapi.Info(
+          title="My API",
+          default_version='v1',
+          description="API documentation for my project",
+          terms_of_service="https://www.google.com/policies/terms/",
+          contact=openapi.Contact(email="contact@myapi.com"),
+          license=openapi.License(name="BSD License"),
+      ),
+      public=True,
+      permission_classes=(permissions.AllowAny,),
+  )
+
+  urlpatterns = [
+      re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+      path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+      path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+  ]
+#+END_SRC
+
+
+**** Include the Swagger URLs:
+
+#+BEGIN_SRC python
+  from django.contrib import admin
+  from django.urls import path, include
+  from .urls_swagger import urlpatterns as swagger_urls
+
+  urlpatterns = [
+      path('admin/', admin.site.urls),
+      path('api/', include('myapp.urls')),
+  ]
+
+  urlpatterns += swagger_urls
+#+END_SRC
+
+**** Document Your API Views
+
+Ensure your DRF views are properly documented using docstrings and the @api_view decorator or viewsets.
+The next is an example the API endpoint documentation.
+#+BEGIN_SRC python
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+
+@api_view(['GET'])
+def hello_world(request):
+    """
+    A simple API view that returns a Hello World message.
+    ---
+    responses:
+        200:
+            description: A greeting to the world
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            message:
+                                type: string
+                                example: Hello, world!
+    """
+    return Response({"message": "Hello, world!"}, status=status.HTTP_200_OK)
+#+END_SRC
+
+
+
