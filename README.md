@@ -11,7 +11,7 @@ This is the backend server of the AntStone Construction company api rest service
    python -m venv /path/to/new/virtual/environment
 ```
 
-## Activa the Virtual Environment
+## Active the Virtual Environment
 ```bash
     /path/to/new/virtual/environment/Scripts/activate
 ```
