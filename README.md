@@ -27,8 +27,15 @@ This is the backend server of the AntStone Construction company api rest service
     python manage.py runserver
 ```
 
-# For specific port number 
+## For specific port number 
 ```bash
     cd /go/to/root/project
     python manage.py runserver 0.0.0.0:8000
 ```
+
+## For urls for api documentation, with the web server running, go to:
+  - [Swagger UI](http://localhost:8000/swagger/)
+  - [ReDoc UI](http://localhost:8000/redoc/)
+  - [Swagger JSON](http://localhost:8000/swagger.json)
+  - [Swagger YAML](http://localhost:8000/swagger.yaml)
+    
