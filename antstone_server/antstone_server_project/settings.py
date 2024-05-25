@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+import os
+from dotenv import load_dotenv
 import environ
 env = environ.Env()
 environ.Env.read_env()
@@ -28,11 +31,10 @@ SECRET_KEY = 'django-insecure-1&zbcozui_o0e&0lvgh@(ld_&!=5$b(2$29rh=h4fc2y^8(p5x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'antstone_server_project.urls'
@@ -62,7 +66,7 @@ ROOT_URLCONF = 'antstone_server_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ os.path.join(BASE_DIR, '../antstone_frontend/build') ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,8 +146,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-from datetime import timedelta
-
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
@@ -165,3 +167,11 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, '../antstone_frontend/build/static')
+]
+
+# This may be changed for security reasons in production
+CORS_ALLOW_ALL_ORIGINS = True
+CORPS_ALLOW_CREDENTIALS = True 
