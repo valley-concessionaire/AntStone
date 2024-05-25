@@ -18,9 +18,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .urls_swagger import urlpatterns as swagger_urls
 
 urlpatterns = [
     path('api/users/', include('users.urls')),  # Include the API endpoints from the users app
     path('api/', include('antstone_api.urls')),  # Include the API endpoints from the antstone_api app
     path('admin/', admin.site.urls),
 ]
+
+urlpatterns += swagger_urls
