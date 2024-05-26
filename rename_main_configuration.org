@@ -1,4 +1,4 @@
-** Renaming master to main in as default branch
+** Renaming master to main as default branch
 
 The default branch has been renamed!
 master is now named main

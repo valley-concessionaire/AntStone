@@ -23,7 +23,7 @@ This is the backend server of the AntStone Construction company api rest service
     pip install -r requirements.txt
 ```
 
-### Go to the projecto root folder and launch the server
+### Go to the project root folder and launch the server
 ```bash
     cd /go/to/root/project
     python manage.py runserver
