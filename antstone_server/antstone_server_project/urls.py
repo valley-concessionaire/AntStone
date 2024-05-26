@@ -19,11 +19,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .urls_swagger import urlpatterns as swagger_urls
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('api/users/', include('users.urls')),  # Include the API endpoints from the users app
     path('api/', include('antstone_api.urls')),  # Include the API endpoints from the antstone_api app
     path('admin/', admin.site.urls),
+    path('', TemplateView.as_view(template_name='index.html')),  # Serve the frontend
 ]
 
 urlpatterns += swagger_urls
