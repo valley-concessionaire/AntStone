@@ -41,6 +41,10 @@ This is the backend server of the AntStone Construction company api rest service
   - [Swagger JSON](http://localhost:8000/swagger.json)
   - [Swagger YAML](http://localhost:8000/swagger.yaml)
 
+### Running the backend tests
+```bash
+    python manage.py test
+```
 
 ## Frontend
 
@@ -73,3 +77,12 @@ This is the backend server of the AntStone Construction company api rest service
 ### Access to the web app from the browser.
 
   [localhost](http://localhost:3000) 
+
+### Running the frontend tests
+```bash
+    npx cypress open 
+```
+or
+```bash
+    npm run cy:open
+```
