@@ -1,4 +1,4 @@
-import User from "./user";
+import User from "./models/user";
 
 export default interface IAuthManager {
     saveAuthentication(token: string, user: User): void;
