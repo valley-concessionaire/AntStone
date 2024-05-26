@@ -1,0 +1,11 @@
+** Renaming master to main in as default branch
+
+The default branch has been renamed!
+master is now named main
+
+#+BEGIN_SRC sh
+  git branch -m master main
+  git fetch origin
+  git branch -u origin/main main
+  git remote set-head origin -a
+#+END_SRC
