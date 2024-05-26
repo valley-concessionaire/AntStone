@@ -43,6 +43,7 @@ This is the backend server of the AntStone Construction company api rest service
 
 
 ## Frontend
+
   The next commands is for the frontend installation for development.
 
 ### Pull the repository
@@ -71,6 +72,4 @@ This is the backend server of the AntStone Construction company api rest service
 
 ### Access to the web app from the browser.
 
-```bash
-   [localhost](http://localhost:3000) 
-```
+  [localhost](http://localhost:3000) 
