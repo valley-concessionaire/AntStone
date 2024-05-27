@@ -44,6 +44,8 @@ import {
 } from "../components/ui/tabs"
 import { ObrasDataTable } from "./obras/obrasDataTable"
 
+import ObrasPage from "./obras/obrasPage"
+
 export function HomePage() {
   return (
         <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8  lg:grid-cols-2 ">
@@ -135,7 +137,7 @@ export function HomePage() {
                 </div>
               </div>
               <TabsContent value="obras">
-                <ObrasDataTable/>
+                <ObrasPage/>
               </TabsContent>
               <TabsContent value="tareas">
                 {/* <TareasDataTable /> */}

@@ -65,55 +65,6 @@ const data: Payment[] = [
         status: "terminada",
         master: "Nemo",
     },
-    {
-        id: "bhqecj4p",
-        nombre: "Obra 5",
-        amount: 721,
-        status: "cancelada",
-        master: "Amanda",
-    },
-    {
-        id: "jas49cj4p",
-        nombre: "Obra 6",
-        amount: 700,
-        status: "procesando",
-        master: "Pablo",
-    },
-    {
-        id: "jas49cj4p",
-        nombre: "Obra 7",
-        amount: 700,
-        status: "procesando",
-        master: "Pablo",
-    },
-    {
-        id: "jas49cj4p",
-        nombre: "Obra 8",
-        amount: 700,
-        status: "procesando",
-        master: "Pablo",
-    },
-    {
-        id: "jas49cj4p",
-        nombre: "Obra 9",
-        amount: 700,
-        status: "procesando",
-        master: "Pablo",
-    },
-    {
-        id: "jas49cj4p",
-        nombre: "Obra 10",
-        amount: 700,
-        status: "procesando",
-        master: "Pablo",
-    },
-    {
-        id: "jas49cj4p",
-        nombre: "Obra 11",
-        amount: 700,
-        status: "procesando",
-        master: "Pablo",
-    },
 ]
 
 export type Payment = {

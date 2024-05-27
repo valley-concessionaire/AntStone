@@ -50,7 +50,7 @@ export function ObraConfig({isVisible, onClose}: {isVisible: boolean, onClose: (
               </Badge>
               <div className="hidden items-center gap-2 md:ml-auto md:flex">
                 <Button variant="outline" size="sm" onClick={() => onClose()}>
-                  Discartar
+                  Descartar
                 </Button>
                 <Button size="sm">Guardar cambios</Button>
               </div>
