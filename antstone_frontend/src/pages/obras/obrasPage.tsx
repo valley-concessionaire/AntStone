@@ -1,10 +1,10 @@
+import { Fragment, useEffect, useState } from "react"
 import {
   File,
   ListFilter,
   PlusCircle,
 } from "lucide-react"
 
-import { TableConf } from "../../components/tableContent"
 import { Button } from "../../components/ui/button"
 import {
   DropdownMenu,
@@ -12,17 +12,13 @@ import {
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../../components/ui/tabs"
+
 import { Work, colObras } from "./obrasColumns"
 import { ObrasDataTable } from "./obrasDataTable"
-import { Fragment, useEffect, useState } from "react"
 
 import { ObraConfig } from "../../components/obraConfig"
 
@@ -34,7 +30,7 @@ async function getData(): Promise<Work[]> {
       id: "Obra1",
       name: "Obra 1",
       cost: 316,
-      status: "terminada",
+      status: "pendiente",
       master: "Juan",
     },
     {
@@ -106,6 +102,9 @@ async function getData(): Promise<Work[]> {
 function ObrasPage()  {
   const [data, setData] = useState<Work[] | null>(null); // Initialize data to null to avoid potential errors
   const [showObraConfig, setShowObraConfig] = useState(false)
+  const [statusFilter, setstatusFilter] = useState("")
+
+  const [position, setPosition] = useState("Todo")
 
   useEffect(() => {
     if (showObraConfig) {
@@ -118,9 +117,6 @@ function ObrasPage()  {
     };
   }, [showObraConfig]);
 
-  if (showObraConfig) {
-    console.log("Te saludo eh")
-  }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -140,58 +136,46 @@ function ObrasPage()  {
 
   return (
     <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-          <Tabs defaultValue="all">
-            <div className="flex items-center">
-              <TabsList>
-                <TabsTrigger value="all">All</TabsTrigger>
-                <TabsTrigger value="active">Active</TabsTrigger>
-                <TabsTrigger value="draft">Draft</TabsTrigger>
-                <TabsTrigger value="archived" className="hidden sm:flex">
-                  Archived
-                </TabsTrigger>
-              </TabsList>
-              <div className="ml-auto flex items-center gap-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="sm" className="h-7 gap-1">
-                      <ListFilter className="h-3.5 w-3.5" />
-                      <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                        Filter
-                      </span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Filter by</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuCheckboxItem checked>
-                      Active
-                    </DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>
-                      Archived
-                    </DropdownMenuCheckboxItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                <Button size="sm" variant="outline" className="h-7 gap-1">
-                  <File className="h-3.5 w-3.5" />
-                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                    Export
-                  </span>
-                </Button>
-                <Button size="sm" className="h-7 gap-1">
-                  <PlusCircle className="h-3.5 w-3.5" />
-                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                    Add Product
-                  </span>
-                </Button>
-              </div>
-            </div>
-            <TabsContent value="all">
-              <ObrasDataTable columns={colObras(setShowObraConfig)} data={data} />
-            </TabsContent>
-          </Tabs>
-          <ObraConfig isVisible={showObraConfig} onClose={() => setShowObraConfig(false)} />
-        </div>
+      <div className="ml-auto flex items-center gap-2">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="sm" className="h-7 gap-1">
+              <ListFilter className="h-3.5 w-3.5" />
+              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                Estado : {position}
+              </span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Filtrar por</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+              <DropdownMenuRadioItem onSelect={() => setstatusFilter("")} value="Todo">Todo</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem onSelect={() => setstatusFilter("Pendiente")} value="Pendiente">Pendiente</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem onSelect={() => setstatusFilter("Procesando")} value="Procesando">Procesando</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem onSelect={() => setstatusFilter("Terminada")} value="Terminada">Terminada</DropdownMenuRadioItem>
+              <DropdownMenuRadioItem onSelect={() => setstatusFilter("Cancelada")} value="Cancelada">Cancelada</DropdownMenuRadioItem>
+            </DropdownMenuRadioGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+
+        <Button size="sm" variant="outline" className="h-7 gap-1">
+          <File className="h-3.5 w-3.5" />
+          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+            Exportar
+          </span>
+        </Button>
+        <Button size="sm" className="h-7 gap-1">
+          <PlusCircle className="h-3.5 w-3.5" />
+          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+            Crear Obra
+          </span>
+        </Button>
+      </div>
+      <ObrasDataTable columns={colObras(setShowObraConfig)} data={data} filtered={statusFilter} />
+      <ObraConfig isVisible={showObraConfig} onClose={() => setShowObraConfig(false)} />
+    </div>
   )
 }
 

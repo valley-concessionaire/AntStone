@@ -42,9 +42,9 @@ import {
   TabsList,
   TabsTrigger,
 } from "../components/ui/tabs"
-import { ObrasDataTable } from "./obras/obrasDataTable"
 
 import ObrasPage from "./obras/obrasPage"
+import TrabajadoresPage from "./trabajadores/trabajadoresPage"
 
 export function HomePage() {
   return (
@@ -100,41 +100,7 @@ export function HomePage() {
                   <TabsTrigger value="tareas">Tareas</TabsTrigger>
                   <TabsTrigger value="trabajadores">Trabajadores</TabsTrigger>
                 </TabsList>
-                <div className="ml-auto flex items-center gap-2">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="h-7 gap-1 text-sm"
-                      >
-                        <ListFilter className="h-3.5 w-3.5" />
-                        <span className="sr-only sm:not-sr-only">Filter</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Filtrar</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuCheckboxItem checked>
-                        Activa
-                      </DropdownMenuCheckboxItem>
-                      <DropdownMenuCheckboxItem>
-                        Inactiva
-                      </DropdownMenuCheckboxItem>
-                      <DropdownMenuCheckboxItem>
-                        Archivada
-                      </DropdownMenuCheckboxItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="h-7 gap-1 text-sm"
-                  >
-                    <File className="h-3.5 w-3.5" />
-                    <span className="sr-only sm:not-sr-only">Export</span>
-                  </Button>
-                </div>
+
               </div>
               <TabsContent value="obras">
                 <ObrasPage/>
@@ -143,7 +109,7 @@ export function HomePage() {
                 {/* <TareasDataTable /> */}
               </TabsContent>
               <TabsContent value="trabajadores">
-                <TrabajadoresDataTable/>
+                <TrabajadoresPage/>
               </TabsContent>
             </Tabs>
           </div>

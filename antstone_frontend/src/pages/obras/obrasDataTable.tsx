@@ -1,4 +1,3 @@
-import { Badge } from "../../components/ui/badge"
 import { Button } from "../../components/ui/button"
 import {
     Card,
@@ -23,15 +22,6 @@ import {
     useReactTable,
 } from "@tanstack/react-table"
 import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "../../components/ui/dropdown-menu"
-import {
     Table,
     TableBody,
     TableCell,
@@ -40,21 +30,21 @@ import {
     TableRow,
 } from "../../components/ui/table"
 import { Input } from "../../components/ui/input"
-import { ObraConfig } from "../../components/obraConfig"
 
 import { Fragment, useEffect, useState } from "react"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData, TValue, filtered> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
+    filtered: string
 }
 
-export function ObrasDataTable<TData, TValue>({
+export function ObrasDataTable<TData, TValue, filtered>({
     columns,
     data,
-    }: DataTableProps<TData, TValue>) {
+    filtered,
+    }: DataTableProps<TData, TValue, filtered>) {
 
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -67,8 +57,6 @@ export function ObrasDataTable<TData, TValue>({
     const [columnVisibility, setColumnVisibility] =
         React.useState<VisibilityState>({})
     const [rowSelection, setRowSelection] = React.useState({})
-
-    
 
     const table = useReactTable({
         data,
@@ -91,44 +79,28 @@ export function ObrasDataTable<TData, TValue>({
         },
     })
 
+
+    useEffect(() => {
+        const filtra = () => {
+                table.getColumn("status")?.setFilterValue(filtered)
+        };
+    
+        filtra();
+    }, [filtered])
+
+
     return (
         <Fragment>
             <div className="w-full">
                 <div className="flex items-center py-4">
                     <Input
-                    placeholder="Filter masters..."
-                    value={(table.getColumn("master")?.getFilterValue() as string) ?? ""}
+                    placeholder="Filtrar por nombre..."
+                    value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("master")?.setFilterValue(event.target.value)
+                        table.getColumn("name")?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                     />
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="ml-auto">
-                            Columnas <ChevronDown className="ml-2 h-4 w-4" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            {table
-                            .getAllColumns()
-                            .filter((column) => column.getCanHide())
-                            .map((column) => {
-                                return (
-                                <DropdownMenuCheckboxItem
-                                    key={column.id}
-                                    className="capitalize"
-                                    checked={column.getIsVisible()}
-                                    onCheckedChange={(value) =>
-                                    column.toggleVisibility(!!value)
-                                    }
-                                >
-                                    {column.id}
-                                </DropdownMenuCheckboxItem>
-                                )
-                            })}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
                 </div>
             </div>
 
@@ -161,32 +133,31 @@ export function ObrasDataTable<TData, TValue>({
                                 ))}
                             </TableHeader>
                             <TableBody>
-                            {table.getRowModel().rows?.length ? (
-                                table.getRowModel().rows.map((row) => (
-                                <TableRow
-                                    key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
-                                >
-                                    {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </TableCell>
-                                    ))}
-                                </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
-                                </TableCell>
-                                </TableRow>
-                            )}
+                                {table.getRowModel().rows?.length ? (
+                                    table.getRowModel().rows.map((row) => (
+                                    <TableRow
+                                        key={row.id}
+                                        data-state={row.getIsSelected() && "selected"}
+                                    >
+                                        {row.getVisibleCells().map((cell) => (
+                                        <TableCell key={cell.id}>
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </TableCell>
+                                        ))}
+                                    </TableRow>
+                                    ))
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={columns.length} className="h-24 text-center">
+                                            No results.
+                                        </TableCell>
+                                    </TableRow>
+                                )}
                             </TableBody>
                         </Table>
                     </div>
                 </CardContent>
             </Card>
-    
             <div className="flex items-center justify-end space-x-2 py-4 ">
                 <div className="flex-1 text-sm text-muted-foreground">
                     {table.getFilteredSelectedRowModel().rows.length} of{" "}
