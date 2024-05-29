@@ -33,6 +33,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(_('staff status'), default=False)
     is_active = models.BooleanField(_('active'), default=True)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    es_activo = models.BooleanField(default=True)
 
     groups = models.ManyToManyField(Group, verbose_name=_('groups'), blank=True, related_name='%(class)s_groups')
     user_permissions = models.ManyToManyField(Permission, verbose_name=_('user permissions'), blank=True, related_name='%(class)s_permissions')
