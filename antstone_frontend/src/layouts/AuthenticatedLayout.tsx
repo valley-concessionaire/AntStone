@@ -3,14 +3,13 @@ import {
   Search,
 } from "lucide-react"
 
-import { Link } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../components/ui/breadcrumb"
 import { Button } from "../components/ui/button"
@@ -24,12 +23,23 @@ import {
 } from "../components/ui/dropdown-menu"
 import { Input } from "../components/ui/input"
 import { NavbarMobile } from "../components/navbarMobile"
+import { HomePage } from "../pages/homePage";
+import { ObrasPage } from "../pages/obras/obrasPage";
+import { TrabajadoresPage } from "../pages/trabajadores/trabajadoresPage";
+import IoCContainer from "../shared/IoC/IoCContainer";
 
-interface LayoutProps {
-  children: React.ReactNode
-}
 
-export function Layout({ children }: LayoutProps) {
+export function AuthenticatedLayout() {
+
+
+  const user = IoCContainer.getAuthManager().getUser();
+
+  const logout = (e: any) => {
+    e.preventDefault();
+    IoCContainer.getAuthManager().removeAuthentication();
+    window.location.href = '/';
+  }
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -78,16 +88,27 @@ export function Layout({ children }: LayoutProps) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              <div className="flex items-center gap-2 p-2 font-bold">{user.full_name??''}</div>
               <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Configuración</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Cerrar sesión</DropdownMenuItem>
+              <DropdownMenuItem>
+                 <div onClick={logout}>
+                  Cerrar sesión
+                 </div>
+                </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
         <main>
-          {children}
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/inicio" element={<HomePage />} />
+            <Route path="/obras" element={<ObrasPage />} />
+            <Route path="/trabajadores" element={<TrabajadoresPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
         </main>
       </div>
     </div>
