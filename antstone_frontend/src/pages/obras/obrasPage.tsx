@@ -16,6 +16,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "../../components/ui/dropdown-menu"
+import { Input } from "../../components/ui/input"
 
 import { Work, colObras } from "./obrasColumns"
 import { ObrasDataTable } from "./obrasDataTable"
@@ -57,44 +58,51 @@ async function getData(): Promise<Work[]> {
     {
       id: "5kmh2hae",
       name: "Obra 5",
-      cost: 874,
+      cost: 102,
       status: "terminada",
       master: "Nemo",
     },
     {
       id: "5kma32jkhe",
       name: "Obra 6",
-      cost: 874,
+      cost: 870,
       status: "cancelada",
       master: "Maria",
     },
     {
       id: "23809h3ae",
       name: "Obra 7",
-      cost: 874,
+      cost: 273,
       status: "cancelada",
       master: "Pedro",
     },
     {
       id: "32io9a53ae",
       name: "Obra 8",
-      cost: 874,
+      cost: 834,
       status: "procesando",
       master: "Pedra",
     },
     {
       id: "k2j3983ae",
       name: "Obra 9",
-      cost: 874,
+      cost: 816,
       status: "cancelada",
       master: "Piedra",
     },
     {
       id: "j239783ae",
       name: "Obra 10",
-      cost: 874,
+      cost: 294,
       status: "cancelada",
       master: "Sancocho",
+    },
+    {
+      id: "sakloi18w",
+      name: "Obra 11",
+      cost: 729,
+      status: "terminada",
+      master: "Juanes",
     },
   ]
 }
@@ -103,6 +111,7 @@ function ObrasPage()  {
   const [data, setData] = useState<Work[] | null>(null); // Initialize data to null to avoid potential errors
   const [showObraConfig, setShowObraConfig] = useState(false)
   const [statusFilter, setstatusFilter] = useState("")
+  const [searchName, setSearchName] = useState("")
 
   const [position, setPosition] = useState("Todo")
 
@@ -136,44 +145,57 @@ function ObrasPage()  {
 
   return (
     <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-      <div className="ml-auto flex items-center gap-2">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm" className="h-7 gap-1">
-              <ListFilter className="h-3.5 w-3.5" />
-              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                Estado : {position}
-              </span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Filtrar por</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-              <DropdownMenuRadioItem onSelect={() => setstatusFilter("")} value="Todo">Todo</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem onSelect={() => setstatusFilter("Pendiente")} value="Pendiente">Pendiente</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem onSelect={() => setstatusFilter("Procesando")} value="Procesando">Procesando</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem onSelect={() => setstatusFilter("Terminada")} value="Terminada">Terminada</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem onSelect={() => setstatusFilter("Cancelada")} value="Cancelada">Cancelada</DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+      <div className="flex items-center gap-2">
 
+        <div className="">
+          <div className="flex items-center py-4">
+            <Input
+            placeholder="Filtrar por nombre.."
+            onChange={(event) =>
+              setSearchName(event.target.value)
+            }
+            className="max-w-sm min-w-max"
+            />
+          </div>
+        </div>
 
-        <Button size="sm" variant="outline" className="h-7 gap-1">
-          <File className="h-3.5 w-3.5" />
-          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Exportar
-          </span>
-        </Button>
-        <Button size="sm" className="h-7 gap-1">
-          <PlusCircle className="h-3.5 w-3.5" />
-          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Crear Obra
-          </span>
-        </Button>
+        <div className="ml-auto">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" className="h-7 gap-1">
+                <ListFilter className="h-3.5 w-3.5" />
+                <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                  Estado : {position}
+                </span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Filtrar por</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+                <DropdownMenuRadioItem onSelect={() => setstatusFilter("")} value="Todo">Todo</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem onSelect={() => setstatusFilter("Pendiente")} value="Pendiente">Pendiente</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem onSelect={() => setstatusFilter("Procesando")} value="Procesando">Procesando</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem onSelect={() => setstatusFilter("Terminada")} value="Terminada">Terminada</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem onSelect={() => setstatusFilter("Cancelada")} value="Cancelada">Cancelada</DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Button size="sm" variant="outline" className="h-7 gap-1">
+            <File className="h-3.5 w-3.5" />
+            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+              Exportar
+            </span>
+          </Button>
+          <Button size="sm" className="h-7 gap-1">
+            <PlusCircle className="h-3.5 w-3.5" />
+            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+              Crear Obra
+            </span>
+          </Button>
+        </div>
       </div>
-      <ObrasDataTable columns={colObras(setShowObraConfig)} data={data} filtered={statusFilter} />
+      <ObrasDataTable columns={colObras(setShowObraConfig)} data={data} filtered={statusFilter} searching={searchName} />
       <ObraConfig isVisible={showObraConfig} onClose={() => setShowObraConfig(false)} />
     </div>
   )

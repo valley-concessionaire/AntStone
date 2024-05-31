@@ -38,12 +38,14 @@ interface DataTableProps<TData, TValue, filtered> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
     filtered: string
+    searching: string
 }
 
-export function ObrasDataTable<TData, TValue, filtered>({
+export function ObrasDataTable<TData, TValue, filtered, searching>({
     columns,
     data,
     filtered,
+    searching,
     }: DataTableProps<TData, TValue, filtered>) {
 
     const [sorting, setSorting] = React.useState<SortingState>([])
@@ -52,7 +54,7 @@ export function ObrasDataTable<TData, TValue, filtered>({
     )
     const [pagination, setPagination] = React.useState({
         pageIndex: 0, //initial page index
-        pageSize: 7, //default page size
+        pageSize: 10, //default page size
         });
     const [columnVisibility, setColumnVisibility] =
         React.useState<VisibilityState>({})
@@ -81,12 +83,20 @@ export function ObrasDataTable<TData, TValue, filtered>({
 
 
     useEffect(() => {
-        const filtra = () => {
-                table.getColumn("status")?.setFilterValue(filtered)
+        const filtraEstado = () => {
+            table.getColumn("status")?.setFilterValue(filtered)
         };
     
-        filtra();
+        filtraEstado();
     }, [filtered])
+
+    useEffect(() => {
+        const filtraNombre = () => {
+            table.getColumn("name")?.setFilterValue(searching)
+        };
+    
+        filtraNombre();
+    }, [searching])
 
 
     return (

@@ -5,6 +5,7 @@ import { ArrowUpDown, ChevronDown, MoreHorizontal, Pen, Pencil } from "lucide-re
 
 import { Button } from "../../components/ui/button"
 import { Checkbox } from "../../components/ui/checkbox"
+import { Value } from "@radix-ui/react-select"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -27,7 +28,10 @@ export function colObras(trig:(b:boolean)=>void) {
                 table.getIsAllPageRowsSelected() ||
                 (table.getIsSomePageRowsSelected() && "indeterminate")
                 }
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                onCheckedChange={(value) =>
+                    /*antes: table.toggleAllPageRowsSelected(!!value)*/
+                    table.toggleAllRowsSelected(!!value)
+                    }
                 aria-label="Select all"
             />
             ),
