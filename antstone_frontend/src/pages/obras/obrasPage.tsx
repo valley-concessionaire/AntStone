@@ -107,7 +107,13 @@ async function getData(): Promise<Work[]> {
   ]
 }
 
-function ObrasPage()  {
+interface ObrasPageProps<search> {
+  search: string
+}
+
+function ObrasPage<search> ({
+  search
+  }: ObrasPageProps<search>) {
   const [data, setData] = useState<Work[] | null>(null); // Initialize data to null to avoid potential errors
   const [showObraConfig, setShowObraConfig] = useState(false)
   const [statusFilter, setstatusFilter] = useState("")
@@ -125,6 +131,14 @@ function ObrasPage()  {
     document.body.classList.remove('overflow-hidden');
     };
   }, [showObraConfig]);
+
+  useEffect(() => {
+    const filtraNombre = () => {
+      setSearchName(search)
+    };
+
+    filtraNombre();
+}, [search])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -150,7 +164,7 @@ function ObrasPage()  {
         <div className="">
           <div className="flex items-center py-4">
             <Input
-            placeholder="Filtrar por nombre.."
+            placeholder="Filtrar por nombre...2"
             onChange={(event) =>
               setSearchName(event.target.value)
             }

@@ -101,7 +101,13 @@ async function getData(): Promise<Employee[]> {
   ]
 }
 
-function TrabajadoresPage()  {
+interface TrabajadoresPageProps<search> {
+  search: string
+}
+
+function TrabajadoresPage<search> ({
+  search
+  }: TrabajadoresPageProps<search>) {
   const [data, setData] = useState<Employee[] | null>(null); // Initialize data to null to avoid potential errors
   const [showObraConfig, setShowObraConfig] = useState(false)
   const [statusFilter, setStatusFilter] = useState("")
@@ -109,6 +115,8 @@ function TrabajadoresPage()  {
 
   const [posState, setPosState] = useState("Todo")
   const [posRole, setPosRole] = useState("Todo")
+
+  const [searchName, setSearchName] = useState("")
 
   useEffect(() => {
     if (showObraConfig) {
@@ -120,6 +128,14 @@ function TrabajadoresPage()  {
     document.body.classList.remove('overflow-hidden');
     };
   }, [showObraConfig]);
+
+  useEffect(() => {
+    const filtraNombre = () => {
+      setSearchName(search)
+    };
+
+    filtraNombre();
+}, [search])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -198,7 +214,7 @@ function TrabajadoresPage()  {
           </span>
         </Button>
       </div>
-      <TrabajadoresDataTable columns={colTrabajadores(setShowObraConfig)} data={data} filteredStatus={statusFilter} filteredRole={roleFilter} />
+      <TrabajadoresDataTable columns={colTrabajadores(setShowObraConfig)} data={data} filteredStatus={statusFilter} filteredRole={roleFilter} searching={searchName}/>
       <TrabajadorConfig isVisible={showObraConfig} onClose={() => setShowObraConfig(false)} />
     </div>
   )

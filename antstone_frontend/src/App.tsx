@@ -12,8 +12,8 @@ function App() {
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/inicio" element={<Layout><HomePage/></Layout>} />
-      <Route path="/obras" element={<Layout><ObrasPage/></Layout>} />
-      <Route path="/trabajadores" element={<Layout><TrabajadoresPage/></Layout>} />
+      <Route path="/obras" element={<Layout><ObrasPage search={""}/></Layout>} />
+      <Route path="/trabajadores" element={<Layout><TrabajadoresPage search={""}/></Layout>} />
     </Routes>
   </Router>
   );
