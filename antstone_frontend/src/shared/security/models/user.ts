@@ -1,9 +1,15 @@
+
+
+/* Api response:model
+"user": {
+    "full_name": "Julian Puyo",
+    "email": "manager@example.com",
+    "is_staff": true
+}
+*/
+
 export default interface User {
-    id: string;
-    displayName: string;
-    employeeId?: string | null;
-    pictureUrl: string;
-    position: string | null;
-    isPasswordExpired: boolean;
-    roles: string[];
+    full_name: string;
+    email: string;
+    is_staff: boolean;
 }

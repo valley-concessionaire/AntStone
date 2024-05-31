@@ -3,7 +3,7 @@ import IAuthManager from '../security/IAuthManager';
 import IoCContainer from '../IoC/IoCContainer';
 
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.baseURL = process.env.ANTSTONE_URL;
 
 const requestWithTokenInterceptor = (config: InternalAxiosRequestConfig ): InternalAxiosRequestConfig => {
 

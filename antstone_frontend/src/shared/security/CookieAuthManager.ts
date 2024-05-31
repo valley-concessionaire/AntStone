@@ -3,51 +3,46 @@ import User from "./models/user";
 
 export default class CookieAuthManager implements IAuthManager {
 
-  saveAuthentication(token: string, user: User): void {
-    this.setCookie('auth', token, 1);
-    localStorage.setItem('id', user.id ?? '');
-    localStorage.setItem('displayName', user.displayName);
-    localStorage.setItem('pictureUrl', user.pictureUrl ?? '/assets/img/faces/profile.jpg');
-    localStorage.setItem('position', user.position ?? '');
-    this.setCookie('roles', user.roles.join(','), 1);
+  saveAuthentication(accessToken: string, refreshToken: string,  user: User): void {
+    this.setCookie('auth', accessToken, 1);
+    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('displayName', user.full_name);
+    localStorage.setItem('email', user.email);
+    //localStorage.setItem('pictureUrl', user.pictureUrl ?? '/assets/img/faces/profile.jpg');
+    localStorage.setItem('isStaff', user.is_staff ? 'true' : 'false');
+    //this.setCookie('roles', user.roles.join(','), 1);
   }
 
   removeAuthentication() {
     document.cookie = 'auth=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     localStorage.removeItem('displayName');
-    localStorage.removeItem('pictureUrl');
-    localStorage.removeItem('position');
-    localStorage.removeItem('selectedBranchId');
-    localStorage.removeItem('selectedBranch');
+    localStorage.removeItem('email');
+    localStorage.removeItem('isStaff');
     document.cookie = 'roles=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 
   isAuthenticated(): boolean {
     const authToken = this.getCookie('auth');
-
     return authToken !== '';
   }
 
   getUserDisplayName(): string {
     const displayName = this.isAuthenticated() ? localStorage.getItem('displayName') : 'Anónimo';
-
     return displayName ?? '';
   }
 
   getUserPictureUrl(): string {
     const pictureUrl = this.isAuthenticated() ? localStorage.getItem('pictureUrl') : '';
-
     return pictureUrl ?? '/assets/img/faces/profile.jpg';
   }
 
   getUser(): User {
     const user: User = {
-      displayName: localStorage.getItem('displayName') ?? 'Anónimo',
-      pictureUrl: localStorage.getItem('pictureUrl') ?? '/assets/img/faces/profile.jpg',
-      id: localStorage.getItem('id') ?? '',
-      position: localStorage.getItem('position') ?? '',
-      isPasswordExpired: false,
-      roles: this.getCookie('roles').split(',')
+      full_name: localStorage.getItem('displayName') ?? 'Anónimo',
+      is_staff: localStorage.getItem('isStaff') === 'true',
+      email: localStorage.getItem('email') ?? '',
+      //roles: this.getCookie('roles').split(',')
+      //pictureUrl: localStorage.getItem('pictureUrl') ?? '/assets/img/faces/profile.jpg',
     };
 
     return user;
