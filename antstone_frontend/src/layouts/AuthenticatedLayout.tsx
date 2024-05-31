@@ -26,9 +26,20 @@ import { NavbarMobile } from "../components/navbarMobile"
 import { HomePage } from "../pages/homePage";
 import { ObrasPage } from "../pages/obras/obrasPage";
 import { TrabajadoresPage } from "../pages/trabajadores/trabajadoresPage";
+import IoCContainer from "../shared/IoC/IoCContainer";
 
 
 export function AuthenticatedLayout() {
+
+
+  const user = IoCContainer.getAuthManager().getUser();
+
+  const logout = (e: any) => {
+    e.preventDefault();
+    IoCContainer.getAuthManager().removeAuthentication();
+    window.location.href = '/';
+  }
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -77,11 +88,16 @@ export function AuthenticatedLayout() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              <div className="flex items-center gap-2 p-2 font-bold">{user.full_name??''}</div>
               <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Configuración</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Cerrar sesión</DropdownMenuItem>
+              <DropdownMenuItem>
+                 <div onClick={logout}>
+                  Cerrar sesión
+                 </div>
+                </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>

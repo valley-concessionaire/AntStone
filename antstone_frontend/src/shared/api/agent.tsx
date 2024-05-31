@@ -3,7 +3,7 @@ import IAuthManager from '../security/IAuthManager';
 import IoCContainer from '../IoC/IoCContainer';
 
 
-axios.defaults.baseURL = process.env.ANTSTONE_URL;
+axios.defaults.baseURL = 'http://localhost:8000';
 
 const requestWithTokenInterceptor = (config: InternalAxiosRequestConfig ): InternalAxiosRequestConfig => {
 

@@ -39,10 +39,10 @@ export default class CookieAuthManager implements IAuthManager {
   getUser(): User {
     const user: User = {
       full_name: localStorage.getItem('displayName') ?? 'Anónimo',
+      //pictureUrl: localStorage.getItem('pictureUrl') ?? '/assets/img/faces/profile.jpg',
       is_staff: localStorage.getItem('isStaff') === 'true',
       email: localStorage.getItem('email') ?? '',
       //roles: this.getCookie('roles').split(',')
-      //pictureUrl: localStorage.getItem('pictureUrl') ?? '/assets/img/faces/profile.jpg',
     };
 
     return user;

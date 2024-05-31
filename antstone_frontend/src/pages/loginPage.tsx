@@ -15,7 +15,7 @@ export function LoginPage() {
   const authManager: IAuthManager = IoCContainer.getAuthManager();
 
   const [credentials, setCredentials] = useState<Credentials>({
-    emailAddress: "",
+    email: "",
     password: "",
   });
 
@@ -33,10 +33,9 @@ export function LoginPage() {
     setHasError(false);
     setIsLoading(true);
     try {
-      const authInfo = await requests.post("/authenticate", credentials);
-      authManager.saveAuthentication(authInfo.token, authInfo);
-     // navigate("/");
-      // window.location.href = "/";
+      const authInfo = await requests.post("api/users/authenticate", credentials);
+      authManager.saveAuthentication(authInfo.access, authInfo.refresh, authInfo.user);
+      window.location.href = "/";
     } catch (error) {
       setHasError(true);
       setIsLoading(false);
@@ -59,11 +58,11 @@ export function LoginPage() {
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="emailAddress"
-                  type="emailAddress"
-                  name="emailAddress"
+                  type="email"
+                  name="email"
                   placeholder="m@example.com"
                   required
-                  value={credentials.emailAddress}
+                  value={credentials.email}
                   onChange={(e) => onInputChange(e.target.name, e.target.value)}
                 />
               </div>
