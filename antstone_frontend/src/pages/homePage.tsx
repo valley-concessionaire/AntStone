@@ -135,13 +135,13 @@ export function HomePage() {
                 </div>
               </div>
               <TabsContent value="obras">
-                <ObrasDataTable/>
+                <TableConf/>
               </TabsContent>
               <TabsContent value="tareas">
                 {/* <TareasDataTable /> */}
               </TabsContent>
               <TabsContent value="trabajadores">
-                <TrabajadoresDataTable/>
+                <TableConf/>
               </TabsContent>
             </Tabs>
           </div>

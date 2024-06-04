@@ -1,5 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework.documentation import include_docs_urls
 from users.views import CustomTokenObtainPairView
 from .viewsets import (
     CapatazViewSet, DirectorDeObraViewSet, GerenteViewSet,
@@ -17,5 +18,6 @@ router.register(r'ayudante-de-albanil', AyudanteDeAlbanilViewSet, basename='ayud
 urlpatterns = [
     path('', include(router.urls)),
     path('authenticate', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('docs/', include_docs_urls(title='Users API')),
 ]
