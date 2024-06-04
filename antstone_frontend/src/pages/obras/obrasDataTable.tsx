@@ -101,10 +101,10 @@ export function ObrasDataTable<TData, TValue, filtered, searching>({
 
     return (
         <Fragment>
-            <div className="w-full">
+            {/*<div className="w-full">
                 <div className="flex items-center py-4">
                     <Input
-                    placeholder="Filtrar por nombre..."
+                    placeholder="Filtrar por nombre...1"
                     value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn("name")?.setFilterValue(event.target.value)
@@ -113,7 +113,7 @@ export function ObrasDataTable<TData, TValue, filtered, searching>({
                     />
                 </div>
             </div>
-
+                */}
             <Card x-chunk="dashboard-06-chunk-0">
                 <CardHeader>
                     <CardTitle>Obras</CardTitle>
@@ -168,6 +168,7 @@ export function ObrasDataTable<TData, TValue, filtered, searching>({
                     </div>
                 </CardContent>
             </Card>
+            
             <div className="flex items-center justify-end space-x-2 py-4 ">
                 <div className="flex-1 text-sm text-muted-foreground">
                     {table.getFilteredSelectedRowModel().rows.length} of{" "}

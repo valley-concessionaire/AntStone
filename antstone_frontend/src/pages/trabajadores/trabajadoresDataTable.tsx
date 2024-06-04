@@ -108,6 +108,7 @@ export function TrabajadoresDataTable<TData, TValue, filteredStatus, filteredRol
 
     return (
         <Fragment>
+            
             <div className="w-full">
                 <div className="flex items-center py-4">
                     <Input
@@ -120,7 +121,7 @@ export function TrabajadoresDataTable<TData, TValue, filteredStatus, filteredRol
                     />
                 </div>
             </div>
-
+            
             <Card x-chunk="dashboard-06-chunk-0">
                 <CardHeader>
                     <CardTitle>Trabajadores</CardTitle>
