@@ -33,7 +33,7 @@ export function LoginPage() {
     setHasError(false);
     setIsLoading(true);
     try {
-      const authInfo = await requests.post("api/users/authenticate", credentials);
+      const authInfo = await requests.post("/users/authenticate", credentials);
       authManager.saveAuthentication(authInfo.access, authInfo.refresh, authInfo.user);
       window.location.href = "/";
     } catch (error) {

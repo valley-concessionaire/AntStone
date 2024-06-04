@@ -1,61 +1,71 @@
 import {
-  PlusCircle,
-  Upload,
+    PlusCircle,
 } from "lucide-react"
 
 import { Badge } from "../components/ui/badge"
 import { Button } from "../components/ui/button"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from "../components/ui/card"
 import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label"
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "../components/ui/select"
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
 } from "../components/ui/table"
 import { Textarea } from "../components/ui/textarea"
 import {
-  ToggleGroup,
-  ToggleGroupItem,
+    ToggleGroup,
+    ToggleGroupItem,
 } from "../components/ui/toggle-group"
 
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "./ui/sheet"
+
+import TrabajadoresPage from "../pages/trabajadores/trabajadoresPage"
+
 export function ObraConfig({isVisible, onClose}: {isVisible: boolean, onClose: () => void}) {
-  if (!isVisible) return null
-  return (
+    if (!isVisible) return null
+    return (
         <div className="grid flex-1 transition ease-in items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 fixed inset-0 bg-black bg-opacity-75 backdrop-blur-md z-50 max-w-full max-h-full overflow-auto">
-          <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4 m-4">
-            <div className="flex items-center gap-4">
-              <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0 text-white">
-                Laser Lemonade Machine
-              </h1>
-              <Badge variant="outline" className="ml-auto sm:ml-0 text-white">
-                Inactiva
-              </Badge>
-              <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                <Button variant="outline" size="sm" onClick={() => onClose()}>
-                  Discartar
-                </Button>
-                <Button size="sm">Guardar cambios</Button>
-              </div>
-            </div>
-            <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
+            <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4 m-4">
+                <div className="flex items-center gap-4">
+                <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0 text-white">
+                    Laser Lemonade Machine
+                </h1>
+                <Badge variant="outline" className="ml-auto sm:ml-0 text-white">
+                    Inactiva
+                </Badge>
+                <div className="hidden items-center gap-2 md:ml-auto md:flex">
+                    <Button variant="outline" size="sm" onClick={() => onClose()}>
+                    Descartar
+                    </Button>
+                    <Button size="sm">Guardar cambios</Button>
+                </div>
+                </div>
+                <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
                     <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
                         <Card x-chunk="dashboard-07-chunk-0">
                             <CardHeader>
@@ -99,50 +109,30 @@ export function ObraConfig({isVisible, onClose}: {isVisible: boolean, onClose: (
                                         <TableRow>
                                         <TableHead className="w-[100px]">Nombre</TableHead>
                                         <TableHead>Rol</TableHead>
-                                        <TableHead>Blank</TableHead>
+                                        <TableHead>estado?</TableHead>
                                         <TableHead className="w-[100px]">Asignaciones</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
+
                                         <TableRow>
                                             <TableCell className="font-semibold">
-                                                GGPC-001
+                                                Trabajador1
                                             </TableCell>
                                             <TableCell>
-                                                <Label htmlFor="stock-1" className="sr-only">
-                                                Stock
-                                                </Label>
-                                                <Input
-                                                id="stock-1"
-                                                type="number"
-                                                defaultValue="100"
-                                                />
+                                                Maestro
                                             </TableCell>
                                             <TableCell>
-                                                <Label htmlFor="price-1" className="sr-only">
-                                                Price
-                                                </Label>
-                                                <Input
-                                                id="price-1"
-                                                type="number"
-                                                defaultValue="99.99"
-                                                />
+                                                Activo?
                                             </TableCell>
                                             <TableCell>
-                                                <ToggleGroup
-                                                type="single"
-                                                defaultValue="s"
-                                                variant="outline"
-                                                >
-                                                <ToggleGroupItem value="s">S</ToggleGroupItem>
-                                                <ToggleGroupItem value="m">M</ToggleGroupItem>
-                                                <ToggleGroupItem value="l">L</ToggleGroupItem>
-                                                </ToggleGroup>
+                                                4
                                             </TableCell>
                                         </TableRow>
+
                                         <TableRow>
                                             <TableCell className="font-semibold">
-                                                GGPC-002
+                                                Trabajador2
                                             </TableCell>
                                             <TableCell>
                                                 <Label htmlFor="stock-2" className="sr-only">
@@ -176,14 +166,30 @@ export function ObraConfig({isVisible, onClose}: {isVisible: boolean, onClose: (
                                                 </ToggleGroup>
                                             </TableCell>
                                         </TableRow>
+
                                     </TableBody>
                                 </Table>
                             </CardContent>
                             <CardFooter className="justify-center border-t p-4">
-                                <Button size="sm" variant="ghost" className="gap-1">
-                                <PlusCircle className="h-3.5 w-3.5" />
-                                    Añadir trabajador
-                                </Button>
+                                
+                                <Sheet>
+                                    <SheetTrigger>
+                                        <Button size="sm" variant="ghost" className="gap-1">
+                                            <PlusCircle className="h-3.5 w-3.5"/>
+                                            Añadir trabajador
+                                        </Button>
+                                    </SheetTrigger>
+                                    <SheetContent className="w-full min-w-fit">
+                                        <SheetHeader>
+                                            <SheetTitle>Añada trabajadores</SheetTitle>
+                                            <SheetDescription>
+                                                This action cannot be undone. This will permanently delete your account
+                                                and remove your data from our servers.
+                                            </SheetDescription>
+                                            <TrabajadoresPage search={""} />
+                                        </SheetHeader>
+                                    </SheetContent>
+                                </Sheet>
                             </CardFooter>
                         </Card>
                         <Card x-chunk="dashboard-07-chunk-2">

@@ -3,7 +3,7 @@ import IAuthManager from '../security/IAuthManager';
 import IoCContainer from '../IoC/IoCContainer';
 
 
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'http://localhost:8000/api';
 
 const requestWithTokenInterceptor = (config: InternalAxiosRequestConfig ): InternalAxiosRequestConfig => {
 
