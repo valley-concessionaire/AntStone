@@ -16,6 +16,7 @@ class Obra(models.Model):
     estado = models.CharField(max_length=255, choices=ESTADO_CHOICES, default='PENDING')
     director = models.ForeignKey('users.DirectorDeObra', on_delete=models.CASCADE, related_name='obras')
     gerente = models.ForeignKey('users.Gerente', on_delete=models.CASCADE, related_name='obras')
+    es_activo = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nombre
@@ -33,6 +34,7 @@ class TareaDeObra(models.Model):
     obra = models.ForeignKey(Obra, on_delete=models.CASCADE, related_name='tareas')
     peones = models.ManyToManyField('users.Peon', related_name='tareas')
     ayudantes_de_albanil = models.ManyToManyField('users.AyudanteDeAlbanil', related_name='tareas')
+    es_activo = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nombre
@@ -46,10 +48,10 @@ class AvanceDeTarea(models.Model):
     notas = models.TextField()
     ubicacion_long = models.DecimalField(max_digits=9, decimal_places=6)
     ubicacion_lat = models.DecimalField(max_digits=9, decimal_places=6)
-    foto = models.ImageField(upload_to='avances', null=True, blank=True)
     progreso = models.DecimalField(max_digits=5, decimal_places=2)
     tarea = models.ForeignKey(TareaDeObra, on_delete=models.CASCADE, related_name='avances')
     capataz = models.ForeignKey('users.Capataz', on_delete=models.CASCADE, related_name='avances')
+    es_activo = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.tarea.nombre} - {self.progreso}%"
@@ -57,3 +59,10 @@ class AvanceDeTarea(models.Model):
     class Meta:
         verbose_name = _('avance de tarea')
         verbose_name_plural = _('avances de tarea')
+
+class ImagenAvance(models.Model):
+    imagen = models.ImageField(upload_to='avances')
+    avance_de_tarea = models.ForeignKey('AvanceDeTarea', on_delete=models.CASCADE, related_name='imagenes')
+
+    def __str__(self):
+        return f"Imagen de {self.avance_de_tarea.tarea.nombre}"

@@ -17,10 +17,6 @@ import {
 } from "../../components/ui/card"
 import { TrabajadorConfig } from "../../components/trabajadorConfig"
 import { Fragment, useEffect, useState } from "react"
-
-
-
-
 import { Button } from "../../components/ui/button"
 import { Checkbox } from "../../components/ui/checkbox"
 import * as React from "react"
@@ -87,7 +83,6 @@ export function TrabajadoresDataTable<TData, TValue, filteredStatus, filteredRol
         },
     })
 
-
     useEffect(() => {
         const filtrado = () => {
         table.getColumn("status")?.setFilterValue(filteredStatus)
@@ -104,7 +99,6 @@ export function TrabajadoresDataTable<TData, TValue, filteredStatus, filteredRol
     
         filtraNombre();
     }, [searching])
-
 
     return (
         <Fragment>

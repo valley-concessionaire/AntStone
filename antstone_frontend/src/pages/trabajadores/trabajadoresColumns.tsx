@@ -17,7 +17,6 @@ export type Employee = {
 }
 
 export function colTrabajadores(trig:(b:boolean)=>void) {
-
     const columns: ColumnDef<Employee>[] = [
         {
             id: "select",

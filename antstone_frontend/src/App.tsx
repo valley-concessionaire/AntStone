@@ -5,19 +5,21 @@ import { LoginPage } from './pages/loginPage';
 import ObrasPage from './pages/obras/obrasPage';
 import TrabajadoresPage from './pages/trabajadores/trabajadoresPage';
 import { TablesPage } from './pages/tablesPage';
-import { Layout } from './layouts/layout';
+import { AuthenticatedLayout } from './layouts/AuthenticatedLayout';
+import IAuthManager from './shared/security/IAuthManager';
+import IoCContainer from './shared/IoC/IoCContainer';
+import { UnauthenticatedLayout } from './layouts/UnauthenticatedLayout';
 
 function App() {
+  const authManager: IAuthManager = IoCContainer.getAuthManager();
   return (
-  <Router>
-    <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route path="/inicio" element={<Layout><HomePage/></Layout>} />
-      <Route path="/tablas" element={<Layout><TablesPage/></Layout>} />
-      <Route path="/obras" element={<Layout><ObrasPage search={""}/></Layout>} />
-      <Route path="/trabajadores" element={<Layout><TrabajadoresPage search={""}/></Layout>} />
-    </Routes>
-  </Router>
+    <>
+      {authManager.isAuthenticated() ?    
+         <AuthenticatedLayout/>
+         :
+         <UnauthenticatedLayout/>
+      }
+    </>
   );
 }
 
