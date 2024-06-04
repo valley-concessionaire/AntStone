@@ -105,7 +105,7 @@ interface TrabajadoresPageProps<search> {
   search: string
 }
 
-function TrabajadoresPage<search> ({
+export function TrabajadoresPage<search> ({
   search
   }: TrabajadoresPageProps<search>) {
   const [data, setData] = useState<Employee[] | null>(null); // Initialize data to null to avoid potential errors

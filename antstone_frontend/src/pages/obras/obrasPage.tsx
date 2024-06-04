@@ -111,7 +111,7 @@ interface ObrasPageProps<search> {
   search: string
 }
 
-function ObrasPage<search> ({
+export function ObrasPage<search> ({
   search
   }: ObrasPageProps<search>) {
   const [data, setData] = useState<Work[] | null>(null); // Initialize data to null to avoid potential errors

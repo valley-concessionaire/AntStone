@@ -63,34 +63,27 @@ export function AuthenticatedLayout() {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-          <div className="ml-auto">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="overflow-hidden rounded-full"
-<<<<<<< HEAD:antstone_frontend/src/layouts/layout.tsx
-                >
-                  <img
-                    src="/placeholder-user.jpg"
-                    width={36}
-                    height={36}
-                    alt="Avatar"
-                    className="overflow-hidden rounded-full"
-                  />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Configuración</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Cerrar sesión</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <div className="relative ml-auto flex-1 md:grow-0">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Buscar..."
+              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[320px]"
+            />
           </div>
-=======
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button 
+                variant="outline"
+                size="icon"
+                className="overflow-hidden rounded-full"
+              >
+                <img
+                  src="/placeholder-user.jpg"
+                  width={36}
+                  height={36}
+                  alt="Avatar"
+                  className="overflow-hidden rounded-full"
                 />
               </Button>
             </DropdownMenuTrigger>
@@ -107,14 +100,13 @@ export function AuthenticatedLayout() {
                 </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
->>>>>>> main:antstone_frontend/src/layouts/AuthenticatedLayout.tsx
         </header>
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/inicio" element={<HomePage />} />
-            <Route path="/obras" element={<ObrasPage />} />
-            <Route path="/trabajadores" element={<TrabajadoresPage />} />
+            <Route path="/obras" element={<ObrasPage search={""}/>} />
+            <Route path="/trabajadores" element={<TrabajadoresPage search={""} />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
