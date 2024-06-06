@@ -51,11 +51,11 @@ export function Navbar() {
           <Tooltip>
             <TooltipTrigger asChild>
               <a
-                href="#"
+                href="/trabajadores"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
               >
                 <HardHat className="h-5 w-5" />
-                <span className="sr-only">Customers</span>
+                <span className="sr-only">Trabajadores</span>
               </a>
             </TooltipTrigger>
             <TooltipContent side="right">Customers</TooltipContent>

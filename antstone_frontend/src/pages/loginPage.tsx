@@ -8,6 +8,7 @@ import IAuthManager from "../shared/security/IAuthManager";
 import { Credentials } from "../shared/security/models/credentials";
 import { useNavigate } from "react-router-dom";
 import requests from "../shared/api/agent";
+import FormButton from "../shared/form/FormButton";
 
 export function LoginPage() {
 
@@ -39,7 +40,7 @@ export function LoginPage() {
     } catch (error) {
       setHasError(true);
       setIsLoading(false);
-    }
+    } 
   };
 
   return (
@@ -85,14 +86,16 @@ export function LoginPage() {
                   onChange={(e) => onInputChange(e.target.name, e.target.value)}
                   />
               </div>
-              <Button 
-                 type="submit" 
-                 className="w-full" >
-                Iniciar Sesión
-              </Button>
+              <FormButton 
+                enabled={!isLoading}
+                isLoading={isLoading}
+                text="Iniciar sesión"
+              />
+
               <Button variant="outline" className="w-full">
                 Ingresar con Google
               </Button>
+              
             </div>
           </div>
         </form>
