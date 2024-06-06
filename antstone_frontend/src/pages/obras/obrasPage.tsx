@@ -22,6 +22,9 @@ import { Work, colObras } from "./obrasColumns"
 import { ObrasDataTable } from "./obrasDataTable"
 
 import { ObraConfig } from "../../components/obraConfig"
+import requests from "../../../src/shared/api/agent"
+import { GetObrasEndpoint, PostObrasEndpoint } from "../../../src/shared/api/api-urls"
+import TableSkeleton from "../../../src/shared/components/TableSkeleton"
 
 
 async function getData(): Promise<Work[]> {
@@ -118,8 +121,11 @@ function ObrasPage<search> ({
   const [showObraConfig, setShowObraConfig] = useState(false)
   const [statusFilter, setstatusFilter] = useState("")
   const [searchName, setSearchName] = useState("")
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [works, setWorks] = useState<Work | null>(null);
 
   const [position, setPosition] = useState("Todo")
+
 
   useEffect(() => {
     if (showObraConfig) {
@@ -132,6 +138,33 @@ function ObrasPage<search> ({
     };
   }, [showObraConfig]);
 
+  function getRandomInt(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  const updateWorkRequest = async () => {
+    try {
+      if (works) {
+       /*  const obra = {
+          nombre: `Obra Fake ${getRandomInt(1, 100)}`,
+          fecha_inicio: "2024-01-01T00:00:00.000Z",
+          fecha_fin: "2025-12-31T00:00:00.000Z",
+          presupuesto: "1000.00",
+          estado: "IN_PROGRESS",
+          director: "Juan",
+          gerente: "María"
+        }; */
+        await requests.post(PostObrasEndpoint(), works)};
+    } catch (error) {
+      console.error('Error updating data:', error); // Handle errors appropriately
+    } 
+  }
+
+  const handlerEditWork = (visible: boolean, work: Work) => {
+    setWorks(work)
+    setShowObraConfig(visible)
+  }
+
   useEffect(() => {
     const filtraNombre = () => {
       setSearchName(search)
@@ -142,22 +175,26 @@ function ObrasPage<search> ({
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true)
       try {
-        const fetchedData = await getData(); // Call your asynchronous function
+        const r = await requests.get(GetObrasEndpoint());
+        const fetchedData = await  getData()//requests.get(GetObrasEndpoint()); // Call your asynchronous function
         setData(fetchedData);
+        setIsLoading(false)
       } catch (error) {
         console.error('Error fetching data:', error); // Handle errors appropriately (optional)
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, []); // Empty dependency array to fetch data only once on mount
 
-  if (!data) {
-    return <p>No data available.</p>; // Handle empty data scenario (optional)
-  }
+  const Skeleton = () => <TableSkeleton />
 
-  return (
+  return <>
+    {isLoading ?
+      Skeleton() :
     <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
       <div className="flex items-center gap-2">
         {/*
@@ -209,10 +246,19 @@ function ObrasPage<search> ({
           </Button>
         </div>
       </div>
-      <ObrasDataTable columns={colObras(setShowObraConfig)} data={data} filtered={statusFilter} searching={searchName} />
-      <ObraConfig isVisible={showObraConfig} onClose={() => setShowObraConfig(false)} />
+      <ObrasDataTable 
+        columns={colObras(handlerEditWork)} 
+        data={data??[]} 
+        filtered={statusFilter} 
+        searching={searchName} />
+      <ObraConfig 
+        onSave={updateWorkRequest}
+        isVisible={showObraConfig} 
+        onClose={() => setShowObraConfig(false)} 
+      />
     </div>
-  )
+  }
+  </>
 }
 
 export default ObrasPage;

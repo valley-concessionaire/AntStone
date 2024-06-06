@@ -46,7 +46,19 @@ import {
 
 import TrabajadoresPage from "../pages/trabajadores/trabajadoresPage"
 
-export function ObraConfig({isVisible, onClose}: {isVisible: boolean, onClose: () => void}) {
+
+interface Props {
+    isVisible: boolean, 
+    onClose: () => void,
+    onSave: () => void
+}
+
+export function ObraConfig(
+    {
+        isVisible, 
+        onClose, 
+        onSave
+    }: Props) {
     if (!isVisible) return null
     return (
         <div className="grid flex-1 transition ease-in items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 fixed inset-0 bg-black bg-opacity-75 backdrop-blur-md z-50 max-w-full max-h-full overflow-auto">
@@ -62,7 +74,7 @@ export function ObraConfig({isVisible, onClose}: {isVisible: boolean, onClose: (
                     <Button variant="outline" size="sm" onClick={() => onClose()}>
                     Descartar
                     </Button>
-                    <Button size="sm">Guardar cambios</Button>
+                    <Button  onClick={onSave} size="sm">Guardar cambios</Button>
                 </div>
                 </div>
                 <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">

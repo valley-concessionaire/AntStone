@@ -17,7 +17,7 @@ export type Work = {
     master: string
 }
 
-export function colObras(trig:(b:boolean)=>void) {
+export function colObras(trig:(b:boolean, work:Work) => void) {
 
     const columns: ColumnDef<Work>[] = [
         {
@@ -101,7 +101,7 @@ export function colObras(trig:(b:boolean)=>void) {
 
                 return (
                     <div>
-                        <Button variant="ghost" className="h-8 w-8 p-0" onClick={ ()=>trig(true) }>
+                        <Button variant="ghost" className="h-8 w-8 p-0" onClick={ ()=>trig(true, work) }>
                             <span className="sr-only">Open menu</span>
                             <Pencil className="h-4 w-4"/>
                         </Button>
