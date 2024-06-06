@@ -100,7 +100,7 @@ export function AuthenticatedLayout() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/inicio" element={<HomePage />} />
-            <Route path="/obras/" element={<ObrasPage search={""}/>} />
+            <Route path="/obras" element={<ObrasPage search={""}/>} />
             <Route path="/trabajadores" element={<TrabajadoresPage search={""}/>} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
