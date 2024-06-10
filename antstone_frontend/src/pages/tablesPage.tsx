@@ -45,7 +45,7 @@ export function TablesPage() {
                     {/* <TareasDataTable /> */}
                         </TabsContent>
                     <TabsContent value="Trabajadores">
-                        <TrabajadoresPage search=""/>
+                        <TrabajadoresPage search="" isForEditing={true}/>
                     </TabsContent>
                 </Tabs>
             </div>

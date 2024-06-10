@@ -7,7 +7,6 @@ import {
     CardHeader,
     CardTitle,
 } from "../../components/ui/card"
-import { Checkbox } from "../../components/ui/checkbox"
 import * as React from "react"
 import {
     ColumnDef,
@@ -29,7 +28,6 @@ import {
     TableHeader,
     TableRow,
 } from "../../components/ui/table"
-import { Input } from "../../components/ui/input"
 
 import { Fragment, useEffect, useState } from "react"
 
@@ -181,7 +179,7 @@ export function ObrasDataTable<TData, TValue, filtered, searching>({
                         onClick={() => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}
                     >
-                        Previous
+                        Anterior
                     </Button>
                     <Button
                         variant="outline"
@@ -189,7 +187,7 @@ export function ObrasDataTable<TData, TValue, filtered, searching>({
                         onClick={() => table.nextPage()}
                         disabled={!table.getCanNextPage()}
                     >
-                        Next
+                        Siguiente
                     </Button>
                 </div>
             </div>
