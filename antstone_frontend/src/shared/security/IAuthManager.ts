@@ -7,5 +7,6 @@ export default interface IAuthManager {
     getUserDisplayName() : string;
     getUserPictureUrl(): string;
     getUser(): User;
-    removeAuthentication() : void
+    removeAuthentication() : void;
+    getRole(): number
 }
