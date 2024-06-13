@@ -4,19 +4,19 @@ from .models import Capataz, DirectorDeObra, Gerente, Peon, AyudanteDeAlbanil
 class CapatazSerializer(serializers.ModelSerializer):
     class Meta:
         model = Capataz
-        fields = '__all__'
+        exclude = ['user_permissions', 'groups', 'date_joined', 'last_login']
         extra_kwargs = {"password": {"write_only": True}}
 
 class DirectorDeObraSerializer(serializers.ModelSerializer):
     class Meta:
         model = DirectorDeObra
-        fields = '__all__'
+        exclude = ['user_permissions', 'groups', 'date_joined', 'last_login']
         extra_kwargs = {"password": {"write_only": True}}
 
 class GerenteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gerente
-        fields = '__all__'
+        exclude = ['user_permissions', 'groups', 'date_joined', 'last_login']
         extra_kwargs = {"password": {"write_only": True}}
 
 class PeonSerializer(serializers.ModelSerializer):
