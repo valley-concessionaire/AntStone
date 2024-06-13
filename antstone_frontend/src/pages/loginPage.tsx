@@ -8,6 +8,9 @@ import IAuthManager from "../shared/security/IAuthManager";
 import { Credentials } from "../shared/security/models/credentials";
 import { useNavigate } from "react-router-dom";
 import requests from "../shared/api/agent";
+import FormButton from "../shared/form/FormButton";
+import ASAlert from "../shared/form/ASAlert";
+
 
 export function LoginPage() {
 
@@ -33,7 +36,7 @@ export function LoginPage() {
     setHasError(false);
     setIsLoading(true);
     try {
-      const authInfo = await requests.post("api/users/authenticate", credentials);
+      const authInfo = await requests.post("/users/authenticate", credentials);
       authManager.saveAuthentication(authInfo.access, authInfo.refresh, authInfo.user);
       window.location.href = "/";
     } catch (error) {
@@ -44,8 +47,16 @@ export function LoginPage() {
 
   return (
     <div className="w-full h-scree h-screen h-screennn lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
-      <div className="flex items-center justify-center py-12">
-        <form onSubmit={onSubmit}>
+      <div className="relative flex items-center justify-center py-12">
+        {hasError &&
+          <ASAlert message= {
+            "Error, el email o la contraseña son incorrectos."
+          }
+          />
+        }
+        <form
+          onSubmit={onSubmit}>
+
           <div className="mx-auto grid w-[350px] gap-6">
             <div className="grid gap-2 text-center">
               <h1 className="text-3xl font-bold">AntStone</h1>
@@ -76,23 +87,25 @@ export function LoginPage() {
                     Recuperar contraseña
                   </a>
                 </div>
-                <Input 
-                  id="password" 
-                  type="password" 
+                <Input
+                  id="password"
+                  type="password"
                   name="password"
                   required
                   value={credentials.password}
                   onChange={(e) => onInputChange(e.target.name, e.target.value)}
-                  />
+                />
               </div>
-              <Button 
-                 type="submit" 
-                 className="w-full" >
-                Iniciar Sesión
-              </Button>
+              <FormButton
+                enabled={!isLoading}
+                isLoading={isLoading}
+                text="Iniciar sesión"
+              />
+
               <Button variant="outline" className="w-full">
                 Ingresar con Google
               </Button>
+
             </div>
           </div>
         </form>

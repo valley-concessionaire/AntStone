@@ -1,216 +1,205 @@
 import { Badge } from "../../components/ui/badge"
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
 } from "../../components/ui/table"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from "../../components/ui/card"
 import { TrabajadorConfig } from "../../components/trabajadorConfig"
 import { Fragment, useEffect, useState } from "react"
 
-export function TrabajadoresDataTable() {
-  const [showConfObra, setShowConfObra] = useState(false)
-  useEffect(() => {
-    if (showConfObra) {
-      document.body.classList.add('overflow-hidden');
-    } else {
-      document.body.classList.remove('overflow-hidden');
-    }
-    return () => document.body.classList.remove('overflow-hidden');
-  }, [showConfObra]);
-  return (
 
-  <Fragment>
-              <Card x-chunk="dashboard-06-chunk-0">
-                <CardHeader>
-                  <CardTitle>Trabajadores</CardTitle>
-                  <CardDescription>
-                    Listado de todos los trabajadores de las diferentes obras.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Nombre</TableHead>
-                      <TableHead className="hidden sm:table-cell">
-                        Rol
-                      </TableHead>
-                      <TableHead className="hidden sm:table-cell">
-                        Estado
-                      </TableHead>
-                      <TableHead className="text-right">Asignaciones</TableHead>
-                    </TableRow>
-                  </TableHeader>
 
-                  <TableBody>
-                    <TableRow className="bg-accent">
-                      <TableCell>
-                        <div className="font-medium">Liam Johnson</div>
-                        <div className="hidden text-sm text-muted-foreground md:inline">
-                          liam@example.com
-                        </div>
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        Obrero
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        <Badge className="text-xs" variant="secondary">
-                          Activo
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right">1</TableCell>
-                    </TableRow>
 
-                    <TableRow>
-                      <TableCell>
-                        <div className="font-medium">Olivia Smith</div>
-                        <div className="hidden text-sm text-muted-foreground md:inline">
-                          olivia@example.com
-                        </div>
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        Capatáz
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        <Badge className="text-xs" variant="outline">
-                          Inactivo
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right">2</TableCell>
-                    </TableRow>
-                    {/* <TableRow>
-                      <TableCell>
-                        <div className="font-medium">Liam Johnson</div>
-                        <div className="hidden text-sm text-muted-foreground md:inline">
-                          liam@example.com
-                        </div>
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        Obrero
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        <Badge className="text-xs" variant="secondary">
-                          Activo
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        2023-06-23
-                      </TableCell>
-                      <TableCell className="text-right">$250.00</TableCell>
-                    </TableRow> */}
-                    <TableRow>
-                      <TableCell>
-                        <div className="font-medium">Noah Williams</div>
-                        <div className="hidden text-sm text-muted-foreground md:inline">
-                          noah@example.com
-                        </div>
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        Gerente
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        <Badge className="text-xs" variant="secondary">
-                          Activo
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right">3</TableCell>
-                    </TableRow>
+import { Button } from "../../components/ui/button"
+import { Checkbox } from "../../components/ui/checkbox"
+import * as React from "react"
+import {
+    ColumnDef,
+    ColumnFiltersState,
+    SortingState,
+    VisibilityState,
+    flexRender,
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+    useReactTable,
+} from "@tanstack/react-table"
+import { Input } from "../../components/ui/input"
 
-                    <TableRow>
-                      <TableCell>
-                        <div className="font-medium">Emma Brown</div>
-                        <div className="hidden text-sm text-muted-foreground md:inline">
-                          emma@example.com
-                        </div>
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        Obrero
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        <Badge className="text-xs" variant="secondary">
-                          Activo
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right">0</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell>
-                        <div className="font-medium">Liam Johnson</div>
-                        <div className="hidden text-sm text-muted-foreground md:inline">
-                          liam@example.com
-                        </div>
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        Obrero
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        <Badge className="text-xs" variant="secondary">
-                          Activo
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right">4</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell>
-                        <div className="font-medium">Olivia Smith</div>
-                        <div className="hidden text-sm text-muted-foreground md:inline">
-                          olivia@example.com
-                        </div>
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        Capatáz
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        <Badge className="text-xs" variant="outline">
-                          Inactivo
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right">1</TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell>
-                        <div className="font-medium">Emma Brown</div>
-                        <div className="hidden text-sm text-muted-foreground md:inline">
-                          emma@example.com
-                        </div>
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        Obrero
-                      </TableCell>
-                      <TableCell className="hidden sm:table-cell">
-                        <Badge className="text-xs" variant="secondary">
-                          Activo
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right">7</TableCell>
-                    </TableRow>
-
-                  </TableBody>
-                </Table>
-                  <TrabajadorConfig isVisible={showConfObra} onClose={() => setShowConfObra(false)} />
-                </CardContent>
-                <CardFooter>
-                  <div className="text-xs text-muted-foreground">
-                    Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                    products
-                  </div>
-                </CardFooter>
-              </Card>
-  </Fragment>
-  )
+interface DataTableProps<TData, TValue, filteredStatus, filteredRole, searching> {
+    columns: ColumnDef<TData, TValue>[]
+    data: TData[]
+    filteredStatus: string
+    filteredRole: string
+    searching: string
 }
 
+export function TrabajadoresDataTable<TData, TValue, filteredStatus, filteredRole, searching>({
+    columns,
+    data,
+    filteredStatus,
+    filteredRole,
+    searching,
+    }: DataTableProps<TData, TValue, filteredStatus, filteredRole, searching>) {
+
+    const [sorting, setSorting] = React.useState<SortingState>([])
+    const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+        []
+    )
+    const [pagination, setPagination] = React.useState({
+        pageIndex: 0, //initial page index
+        pageSize: 7, //default page size
+        });
+    const [columnVisibility, setColumnVisibility] =
+        React.useState<VisibilityState>({})
+    const [rowSelection, setRowSelection] = React.useState({})
+
+    const table = useReactTable({
+        data,
+        columns,
+        onPaginationChange: setPagination,
+        onSortingChange: setSorting,
+        onColumnFiltersChange: setColumnFilters,
+        getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        getSortedRowModel: getSortedRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
+        onColumnVisibilityChange: setColumnVisibility,
+        onRowSelectionChange: setRowSelection,
+        state: {
+        pagination,
+        sorting,
+        columnFilters,
+        columnVisibility,
+        rowSelection,
+        },
+    })
+
+
+    useEffect(() => {
+        const filtrado = () => {
+        table.getColumn("status")?.setFilterValue(filteredStatus)
+        table.getColumn("role")?.setFilterValue(filteredRole)
+        };
+    
+        filtrado();
+    }, [filteredStatus, filteredRole])
+
+    useEffect(() => {
+        const filtraNombre = () => {
+            table.getColumn("name")?.setFilterValue(searching)
+        };
+    
+        filtraNombre();
+    }, [searching])
+
+
+    return (
+        <Fragment>
+            
+            <div className="w-full">
+                <div className="flex items-center py-4">
+                    <Input
+                    placeholder="Filtrar por nombre..."
+                    value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+                    onChange={(event) =>
+                        table.getColumn("name")?.setFilterValue(event.target.value)
+                    }
+                    className="max-w-sm"
+                    />
+                </div>
+            </div>
+            
+            <Card x-chunk="dashboard-06-chunk-0">
+                <CardHeader>
+                    <CardTitle>Trabajadores</CardTitle>
+                    <CardDescription>
+                        Listado de todos los trabajadores.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="rounded-md border">
+                        <Table>
+                            <TableHeader>
+                                {table.getHeaderGroups().map((headerGroup) => (
+                                    <TableRow key={headerGroup.id}>
+                                        {headerGroup.headers.map((header) => {
+                                            return (
+                                            <TableHead key={header.id}>
+                                                {header.isPlaceholder
+                                                ? null
+                                                : flexRender(
+                                                    header.column.columnDef.header,
+                                                    header.getContext()
+                                                    )}
+                                            </TableHead>
+                                            )
+                                        })}
+                                    </TableRow>
+                                ))}
+                            </TableHeader>
+                            <TableBody>
+                                {table.getRowModel().rows?.length ? (
+                                    table.getRowModel().rows.map((row) => (
+                                    <TableRow
+                                        key={row.id}
+                                        data-state={row.getIsSelected() && "selected"}
+                                    >
+                                        {row.getVisibleCells().map((cell) => (
+                                        <TableCell key={cell.id}>
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </TableCell>
+                                        ))}
+                                    </TableRow>
+                                    ))
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={columns.length} className="h-24 text-center">
+                                            No results.
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </div>
+                </CardContent>
+            </Card>
+            <div className="flex items-center justify-end space-x-2 py-4 ">
+                <div className="flex-1 text-sm text-muted-foreground">
+                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
+                    {table.getFilteredRowModel().rows.length} row(s) selected.
+                </div>
+                <div className="space-x-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => table.previousPage()}
+                        disabled={!table.getCanPreviousPage()}
+                    >
+                        Anterior
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => table.nextPage()}
+                        disabled={!table.getCanNextPage()}
+                    >
+                        Siguiente
+                    </Button>
+                </div>
+            </div>
+        </Fragment>
+    )
+}

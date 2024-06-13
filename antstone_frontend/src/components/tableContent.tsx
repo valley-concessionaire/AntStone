@@ -55,7 +55,7 @@ export function TableConf() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                 <Table>
+                    <Table>
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Nombre</TableHead>
@@ -458,7 +458,9 @@ export function TableConf() {
 
                         </TableBody>
                     </Table>
-          <ObraConfig isVisible={showObraConfig} onClose={() => setShowObraConfig(false)} />
+          <ObraConfig isVisible={showObraConfig} onClose={() => setShowObraConfig(false)} onSave={function (): void {
+                      throw new Error("Function not implemented.")
+                  } } />
                 </CardContent>
                 <CardFooter>
                   <div className="text-xs text-muted-foreground">
