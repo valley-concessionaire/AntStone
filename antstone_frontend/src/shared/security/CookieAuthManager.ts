@@ -1,5 +1,6 @@
 import IAuthManager from "./IAuthManager";
 import User from "./models/user";
+import { JwtPayload, jwtDecode } from "jwt-decode";
 
 export default class CookieAuthManager implements IAuthManager {
 
@@ -52,6 +53,12 @@ export default class CookieAuthManager implements IAuthManager {
 
   getToken(): string {
     return this.getCookie('auth');
+  }
+
+  getRole(): number {
+    const token = this.getToken();
+    const decodedToken = jwtDecode<JwtPayload>(token);
+    return decodedToken.exp ?? 0;
   }
 
   getCookie(cname: string) {
