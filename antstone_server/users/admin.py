@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 from .models import Capataz, DirectorDeObra, Gerente, Peon, AyudanteDeAlbanil
 from .models import CustomUser
+from django.contrib.auth.models import Group
 
 class CustomUserAdmin(BaseUserAdmin):
     fieldsets = (
@@ -10,6 +11,7 @@ class CustomUserAdmin(BaseUserAdmin):
         ('Personal info', {'fields': ('first_name', 'last_name')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
+        ('Additional info', {'fields': ('es_activo',)}),
     )
     add_fieldsets = (
         (None, {
@@ -22,23 +24,6 @@ class CustomUserAdmin(BaseUserAdmin):
     ordering = ('email',)
 
 admin.site.register(CustomUser, CustomUserAdmin)
-
-class CustomUserAdmin(BaseUserAdmin):
-    fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
-    )
-    add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'first_name', 'last_name', 'password1', 'password2'),
-        }),
-    )
-    list_display = ('email', 'first_name', 'last_name', 'is_staff')
-    search_fields = ('email', 'first_name', 'last_name')
-    ordering = ('email',)
 
 @admin.register(Capataz)
 class CapatazAdmin(CustomUserAdmin):
@@ -70,3 +55,5 @@ class PeonAdmin(admin.ModelAdmin):
 class AyudanteDeAlbanilAdmin(admin.ModelAdmin):
     list_display = ['__str__']
     search_fields = ['id']
+
+admin.site.unregister(Group)

@@ -102,9 +102,59 @@ export function HomePage() {
                 </CardFooter>
               </Card>
             </div>
-            {/**
-              <TablesPage />
-            */}
+            <Tabs defaultValue="obras">
+              <div className="flex items-center">
+                <TabsList>
+                  <TabsTrigger value="obras">Obras</TabsTrigger>
+                  <TabsTrigger value="tareas">Tareas</TabsTrigger>
+                  <TabsTrigger value="trabajadores">Trabajadores</TabsTrigger>
+                </TabsList>
+                <div className="ml-auto flex items-center gap-2">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-7 gap-1 text-sm"
+                      >
+                        <ListFilter className="h-3.5 w-3.5" />
+                        <span className="sr-only sm:not-sr-only">Filter</span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuLabel>Filtrar</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuCheckboxItem checked>
+                        Activa
+                      </DropdownMenuCheckboxItem>
+                      <DropdownMenuCheckboxItem>
+                        Inactiva
+                      </DropdownMenuCheckboxItem>
+                      <DropdownMenuCheckboxItem>
+                        Archivada
+                      </DropdownMenuCheckboxItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="h-7 gap-1 text-sm"
+                  >
+                    <File className="h-3.5 w-3.5" />
+                    <span className="sr-only sm:not-sr-only">Export</span>
+                  </Button>
+                </div>
+              </div>
+              <TabsContent value="obras">
+                <TableConf/>
+              </TabsContent>
+              <TabsContent value="tareas">
+                {/* <TareasDataTable /> */}
+              </TabsContent>
+              <TabsContent value="trabajadores">
+                <TableConf/>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
   )
