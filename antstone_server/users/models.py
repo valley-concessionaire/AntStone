@@ -70,7 +70,7 @@ class Gerente(CustomUser):
         verbose_name = _('gerente')
         verbose_name_plural = _('gerentes')
 
-class Peon(models.Model):
+class Peon(CustomUser):
     def __str__(self):
         return f"Peon {self.pk}"
 
@@ -78,7 +78,7 @@ class Peon(models.Model):
         verbose_name = _('peon')
         verbose_name_plural = _('peones')
 
-class AyudanteDeAlbanil(models.Model):
+class AyudanteDeAlbanil(CustomUser):
     def __str__(self):
         return f"Ayudante De Albanil {self.pk}"
 
