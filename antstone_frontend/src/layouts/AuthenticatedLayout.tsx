@@ -101,10 +101,11 @@ export function AuthenticatedLayout() {
             <Route path="/" element={<HomePage />} />
             <Route path="/inicio" element={<HomePage />} />
             <Route path="/obras" element={<ObrasPage search={""}/>} />
-            <Route path="/trabajadores" element={<TrabajadoresPage search={""}/>} />
+            <Route path="/trabajadores" element={<TrabajadoresPage search={""} isForEditing={true}/>} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
+        
       </div>
     </div>
   )

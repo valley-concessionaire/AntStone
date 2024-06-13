@@ -106,14 +106,16 @@ async function getData(): Promise<Employee[]> {
   ]
 }
 
-interface Props<search> {
+interface Props<search, isForEditing> {
   search: string
+  isForEditing: boolean
 }
 
 
-function TrabajadoresPage<search>({
-  search
-}: Props<search>) {
+function TrabajadoresPage<search, isForEditing>({
+  search,
+  isForEditing
+}: Props<search, isForEditing>) {
 
   const [data, setData] = useState<CurrentEmployeeModelReturnedFromApi[]>([]); // Initialize data to null to avoid potential errors
   const [showObraConfig, setShowObraConfig] = useState(false)
@@ -166,79 +168,89 @@ function TrabajadoresPage<search>({
     {isLoading ?
       Skeleton() :
       <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-        <div className="ml-auto flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="h-7 gap-1">
-                <ListFilter className="h-3.5 w-3.5" />
-                <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                  Estado : {posState}
-                </span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Filtrar por</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuRadioGroup value={posState} onValueChange={setPosState}>
-                <DropdownMenuRadioItem onSelect={() => setStatusFilter("")} value="Todo">Todo</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem onSelect={() => setStatusFilter("Operando")} value="Operando">Operando</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem onSelect={() => setStatusFilter("Inactivo")} value="Inactivo">Inactivo</DropdownMenuRadioItem>
-              </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+
+        {isForEditing ? 
+          <div className="ml-auto flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="h-7 gap-1">
+                  <ListFilter className="h-3.5 w-3.5" />
+                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                    Estado : {posState}
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Filtrar por</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuRadioGroup value={posState} onValueChange={setPosState}>
+                  <DropdownMenuRadioItem onSelect={() => setStatusFilter("")} value="Todo">Todo</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem onSelect={() => setStatusFilter("Operando")} value="Operando">Operando</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem onSelect={() => setStatusFilter("Inactivo")} value="Inactivo">Inactivo</DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="h-7 gap-1">
-                <ListFilter className="h-3.5 w-3.5" />
-                <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                  Rol : {posRole}
-                </span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Filtrar por</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuRadioGroup value={posRole} onValueChange={setPosRole}>
-                <DropdownMenuRadioItem onSelect={() => setRoleFilter("")} value="Todo">Todo</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem onSelect={() => setRoleFilter("Gerente")} value="Gerente">Gerente</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem onSelect={() => setRoleFilter("Capataz")} value="Capataz">Capataz</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem onSelect={() => setRoleFilter("Director")} value="Director">Director</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem onSelect={() => setRoleFilter("Maestro")} value="Maestro">Maestro</DropdownMenuRadioItem>
-              </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="h-7 gap-1">
+                  <ListFilter className="h-3.5 w-3.5" />
+                  <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                    Rol : {posRole}
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Filtrar por</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuRadioGroup value={posRole} onValueChange={setPosRole}>
+                  <DropdownMenuRadioItem onSelect={() => setRoleFilter("")} value="Todo">Todo</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem onSelect={() => setRoleFilter("Gerente")} value="Gerente">Gerente</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem onSelect={() => setRoleFilter("Capataz")} value="Capataz">Capataz</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem onSelect={() => setRoleFilter("Director")} value="Director">Director</DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem onSelect={() => setRoleFilter("Maestro")} value="Maestro">Maestro</DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
 
-          <Button size="sm" variant="outline" className="h-7 gap-1">
-            <File className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              Exportar
-            </span>
-          </Button>
-          <Button size="sm" className="h-7 gap-1">
-            <PlusCircle className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              Crear Trabajador
-            </span>
-          </Button>
-        </div>
+            <Button size="sm" variant="outline" className="h-7 gap-1">
+              <File className="h-3.5 w-3.5" />
+              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                Exportar
+              </span>
+            </Button>
+            <Button size="sm" className="h-7 gap-1">
+              <PlusCircle className="h-3.5 w-3.5" />
+              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                Crear Trabajador
+              </span>
+            </Button>
+          </div>
+          : null}
+
         <TrabajadoresDataTable
-          columns={colTrabajadores(setShowObraConfig)}
+          columns={colTrabajadores(isForEditing , setShowObraConfig)}
           data={data.map(employeeResponse => ({
             id: employeeResponse.id.toString(),
             name: `${employeeResponse.first_name} ${employeeResponse.last_name}`,
-            status: employeeResponse.is_active,
+            status: `${employeeResponse.is_active}`,
             role: 'Maestro',
             asignments: 0
           } as unknown as Employee))}
           filteredStatus={statusFilter}
           filteredRole={roleFilter}
-          searching={searchName} />
-        <TrabajadorConfig
-          isVisible={showObraConfig}
-          onClose={() => setShowObraConfig(false)} />
+          searching={searchName}
+          /** editingView={isForEditing}*/
+          />
+          
+
+        {isForEditing ? 
+          <TrabajadorConfig
+            isVisible={showObraConfig}
+            onClose={() => setShowObraConfig(false)} />
+          : null}
       </div>}
   </>
 

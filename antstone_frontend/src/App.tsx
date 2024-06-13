@@ -16,9 +16,9 @@ function App() {
   return (
     <>
       {authManager.isAuthenticated() ?    
-         <AuthenticatedLayout/>
-         :
-         <UnauthenticatedLayout/>
+        <AuthenticatedLayout/>
+        :
+        <UnauthenticatedLayout/>
       }
     </>
   );

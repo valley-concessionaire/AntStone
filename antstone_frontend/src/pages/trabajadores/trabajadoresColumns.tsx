@@ -29,12 +29,12 @@ export interface CurrentEmployeeModelReturnedFromApi {
         certificaciones: string,
 }
 
-export function colTrabajadores(trig:(b:boolean)=>void) {
+export function colTrabajadores(isForEditing: boolean, trig:(b:boolean)=>void) {
 
     const columns: ColumnDef<Employee>[] = [
         {
             id: "select",
-            header: ({ table }) => (
+            header: ({ table }) => (isForEditing ? 
             <Checkbox
                 checked={
                 table.getIsAllPageRowsSelected() ||
@@ -43,14 +43,14 @@ export function colTrabajadores(trig:(b:boolean)=>void) {
                 onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
                 aria-label="Select all"
             />
-            ),
-            cell: ({ row }) => (
+            : null),
+            cell: ({ row }) => (isForEditing ?
             <Checkbox
                 checked={row.getIsSelected()}
                 onCheckedChange={(value) => row.toggleSelected(!!value)}
                 aria-label="Select row"
             />
-            ),
+            : null),
             enableSorting: false,
             enableHiding: false,
         },
@@ -100,10 +100,16 @@ export function colTrabajadores(trig:(b:boolean)=>void) {
 
                 return (
                     <div>
-                        <Button variant="ghost" className="h-8 w-8 p-0" onClick={ ()=>trig(true) }>
-                            <span className="sr-only">Open menu</span>
-                            <Pencil className="h-4 w-4"/>
-                        </Button>
+                        {isForEditing ?
+                            <Button variant="ghost" className="h-8 w-8 p-0" onClick={ ()=>trig(true) }>
+                                <span className="sr-only">Open menu</span>
+                                <Pencil className="h-4 w-4"/>
+                            </Button>
+                            :
+                            <Button variant="outline" className="h-8 w-full p-0 mr-2">
+                                Añadir
+                            </Button>
+                        }
                         <Button variant="ghost" className="h-8 w-8 p-0" onClick={() => navigator.clipboard.writeText(employee.id)}>
                             ID
                         </Button>

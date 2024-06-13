@@ -188,7 +188,7 @@ export function TrabajadoresDataTable<TData, TValue, filteredStatus, filteredRol
                         onClick={() => table.previousPage()}
                         disabled={!table.getCanPreviousPage()}
                     >
-                        Previous
+                        Anterior
                     </Button>
                     <Button
                         variant="outline"
@@ -196,7 +196,7 @@ export function TrabajadoresDataTable<TData, TValue, filteredStatus, filteredRol
                         onClick={() => table.nextPage()}
                         disabled={!table.getCanNextPage()}
                     >
-                        Next
+                        Siguiente
                     </Button>
                 </div>
             </div>
