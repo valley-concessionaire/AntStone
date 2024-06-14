@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import Obra, TareaDeObra, AvanceDeTarea
-from .serializers import ObraSerializer, TareaDeObraSerializer, AvanceDeTareaSerializer
+from .serializers import ObraSerializer, TareaDeObraSerializer, AvanceDeTareaSerializer, AvanceDeTareaCreateSerializer
 
 class ObraViewSet(viewsets.ModelViewSet):
     queryset = Obra.objects.all()
@@ -15,5 +15,8 @@ class TareaDeObraViewSet(viewsets.ModelViewSet):
 
 class AvanceDeTareaViewSet(viewsets.ModelViewSet):
     queryset = AvanceDeTarea.objects.all()
-    serializer_class = AvanceDeTareaSerializer
-    permission_classes = [IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'update']:
+            return AvanceDeTareaCreateSerializer
+        return AvanceDeTareaSerializer

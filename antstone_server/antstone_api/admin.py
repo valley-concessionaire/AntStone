@@ -1,7 +1,7 @@
 # antstone_api/admin.py
 
 from django.contrib import admin
-from .models import Obra, TareaDeObra, AvanceDeTarea
+from .models import Obra, TareaDeObra, AvanceDeTarea, ImagenAvance
 
 @admin.register(Obra)
 class ObraAdmin(admin.ModelAdmin):
@@ -17,6 +17,12 @@ class TareaDeObraAdmin(admin.ModelAdmin):
 
 @admin.register(AvanceDeTarea)
 class AvanceDeTareaAdmin(admin.ModelAdmin):
-    list_display = ['fecha', 'notas', 'ubicacion_long', 'ubicacion_lat', 'foto', 'progreso', 'tarea', 'capataz']
+    list_display = ['fecha', 'notas', 'ubicacion_long', 'ubicacion_lat', 'progreso', 'tarea', 'capataz']
     list_filter = ['fecha', 'progreso']
     search_fields = ['tarea__nombre', 'capataz__first_name', 'capataz__last_name']
+
+@admin.register(ImagenAvance)
+class ImagenAvanceAdmin(admin.ModelAdmin):
+    list_display = ['id', 'avance_de_tarea', 'imagen']
+    list_filter = ['avance_de_tarea']
+    search_fields = ['avance_de_tarea__id']
