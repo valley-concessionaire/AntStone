@@ -54,7 +54,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "vercel-build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
