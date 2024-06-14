@@ -27,89 +27,6 @@ import { GetObrasEndpoint, PostObrasEndpoint } from "../../../src/shared/api/api
 import TableSkeleton from "../../../src/shared/components/TableSkeleton"
 
 
-async function getData(): Promise<Work[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "Obra1",
-      name: "Obra 1",
-      cost: 316,
-      status: "pendiente",
-      master: "Juan",
-    },
-    {
-        id: "3u1reuv4",
-        name: "Obra 2",
-        cost: 242,
-        status: "cancelada",
-        master: "Pedro",
-    },
-    {
-        id: "derv1ws0",
-        name: "Obra 3",
-        cost: 837,
-        status: "procesando",
-        master: "Cecilia",
-    },
-    {
-        id: "5k212153ae",
-        name: "Obra 4",
-        cost: 874,
-        status: "terminada",
-        master: "Nemo",
-    },
-    {
-      id: "5kmh2hae",
-      name: "Obra 5",
-      cost: 102,
-      status: "terminada",
-      master: "Nemo",
-    },
-    {
-      id: "5kma32jkhe",
-      name: "Obra 6",
-      cost: 870,
-      status: "cancelada",
-      master: "Maria",
-    },
-    {
-      id: "23809h3ae",
-      name: "Obra 7",
-      cost: 273,
-      status: "cancelada",
-      master: "Pedro",
-    },
-    {
-      id: "32io9a53ae",
-      name: "Obra 8",
-      cost: 834,
-      status: "procesando",
-      master: "Pedra",
-    },
-    {
-      id: "k2j3983ae",
-      name: "Obra 9",
-      cost: 816,
-      status: "cancelada",
-      master: "Piedra",
-    },
-    {
-      id: "j239783ae",
-      name: "Obra 10",
-      cost: 294,
-      status: "cancelada",
-      master: "Sancocho",
-    },
-    {
-      id: "sakloi18w",
-      name: "Obra 11",
-      cost: 729,
-      status: "terminada",
-      master: "Juanes",
-    },
-  ]
-}
-
 interface ObrasPageProps<search> {
   search: string
 }
@@ -178,7 +95,7 @@ function ObrasPage<search> ({
       setIsLoading(true)
       try {
         const r = await requests.get(GetObrasEndpoint());
-        const fetchedData = await  getData()//requests.get(GetObrasEndpoint()); // Call your asynchronous function
+        const fetchedData = await requests.get(GetObrasEndpoint()); // Call your asynchronous function
         setData(fetchedData);
         setIsLoading(false)
       } catch (error) {

@@ -82,7 +82,7 @@ export function ObrasDataTable<TData, TValue, filtered, searching>({
 
     useEffect(() => {
         const filtraEstado = () => {
-            table.getColumn("status")?.setFilterValue(filtered)
+            table.getColumn("estado")?.setFilterValue(filtered)
         };
     
         filtraEstado();
