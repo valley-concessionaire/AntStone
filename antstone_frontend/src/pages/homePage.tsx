@@ -112,11 +112,7 @@ export function HomePage() {
                 <CardHeader className="flex flex-row items-center">
                   <div className="grid gap-2">
                     <CardDescription>Este mes</CardDescription>
-<<<<<<< HEAD
                     <CardTitle className="text-4xl">{totalTasks}</CardTitle>
-=======
-                    <CardTitle className="text-4xl">5 Obras</CardTitle>
->>>>>>> c76e51107a13a54a4f45c18dfff0eed6fa03178e
                   </div>
                   <Button asChild size="sm" className="ml-auto gap-1">
                     <a href="/obras">
