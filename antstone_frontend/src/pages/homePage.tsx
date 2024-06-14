@@ -58,39 +58,29 @@ import { GetTotalObras } from "../shared/api/api-urls"
 const data = [
   {
     "name": "Page A",
-    "uv": 4000,
-    "pv": 2400
+    "obras": 4000,
+    "tareas": 2400
   },
   {
     "name": "Page B",
-    "uv": 3000,
-    "pv": 1398
+    "obras": 3000,
+    "tareas": 1398
   },
   {
     "name": "Page C",
-    "uv": 2000,
-    "pv": 9800
+    "obras": 2000,
+    "tareas": 9800
   },
   {
     "name": "Page D",
-    "uv": 2780,
-    "pv": 3908
+    "obras": 2780,
+    "tareas": 3908
   },
   {
     "name": "Page E",
-    "uv": 1890,
-    "pv": 4800
+    "obras": 1890,
+    "tareas": 4800
   },
-  {
-    "name": "Page F",
-    "uv": 2390,
-    "pv": 3800
-  },
-  {
-    "name": "Page G",
-    "uv": 3490,
-    "pv": 4300
-  }
 ]
 
 export function HomePage() {
@@ -122,7 +112,11 @@ export function HomePage() {
                 <CardHeader className="flex flex-row items-center">
                   <div className="grid gap-2">
                     <CardDescription>Este mes</CardDescription>
+<<<<<<< HEAD
                     <CardTitle className="text-4xl">{totalTasks}</CardTitle>
+=======
+                    <CardTitle className="text-4xl">5 Obras</CardTitle>
+>>>>>>> c76e51107a13a54a4f45c18dfff0eed6fa03178e
                   </div>
                   <Button asChild size="sm" className="ml-auto gap-1">
                     <a href="/obras">
@@ -137,8 +131,8 @@ export function HomePage() {
                       <BarChart data={data}>
                         <Tooltip />
                         <Legend />
-                        <Bar dataKey="pv" fill="#8884d8" />
-                        <Bar dataKey="uv" fill="#82ca9d" />
+                        <Bar dataKey="tareas" fill="#8884d8" />
+                        <Bar dataKey="obras" fill="#82ca9d" />
                       </BarChart>
                     </ResponsiveContainer>
                   </div>
@@ -166,8 +160,8 @@ export function HomePage() {
                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                         <Tooltip />
                         <Legend />
-                        <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-                        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+                        <Line type="monotone" dataKey="tareas" stroke="#8884d8" />
+                        <Line type="monotone" dataKey="obras" stroke="#82ca9d" />
                       </LineChart>
                     </ResponsiveContainer>
                   </div>
@@ -185,8 +179,8 @@ export function HomePage() {
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Tooltip />
-                        <Pie data={data} dataKey="pv" nameKey="name" cx="50%" cy="50%" outerRadius={80} fill="#8884d8" />
-                        <Pie data={data} dataKey="uv" nameKey="name" cx="50%" cy="50%" innerRadius={90} outerRadius={120} fill="#82ca9d"/>
+                        <Pie data={data} dataKey="tareas" nameKey="name" cx="50%" cy="50%" outerRadius={80} fill="#8884d8" />
+                        <Pie data={data} dataKey="obras" nameKey="name" cx="50%" cy="50%" innerRadius={90} outerRadius={120} fill="#82ca9d"/>
                       </PieChart>
                     </ResponsiveContainer>
                   </div>
@@ -197,7 +191,7 @@ export function HomePage() {
               <Card x-chunk="dashboard-05-chunk-0">
                 <CardHeader className="pb-2">
                   <CardDescription>Este mes</CardDescription>
-                  <CardTitle className="text-4xl">Progreso de obras</CardTitle>
+                  <CardTitle className="text-4xl">Progreso de Tareas</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs mt-3 h-[250px] text-muted-foreground">
@@ -215,8 +209,8 @@ export function HomePage() {
                           </linearGradient>
                         </defs>
                         <Tooltip />
-                        <Area type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
-                        <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                        <Area type="monotone" dataKey="obras" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+                        <Area type="monotone" dataKey="tareas" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
                       </AreaChart>
                     </ResponsiveContainer>
                   </div>
