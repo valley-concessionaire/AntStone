@@ -51,7 +51,9 @@ import ObrasPage from "./obras/obrasPage"
 import TrabajadoresPage from "./trabajadores/trabajadoresPage"
 import { TablesPage } from "./tablesPage"
 import { ObrasDataTable } from "./obras/obrasDataTable"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import requests from "../shared/api/agent"
+import { GetTotalObras } from "../shared/api/api-urls"
 
 const data = [
   {
@@ -98,6 +100,20 @@ export function HomePage() {
     setSearch("")
   }
 
+  const [totalTasks, setTotalTasks] = useState(0)
+
+  useEffect(() => {
+    try {
+      requests.get(GetTotalObras())
+      .then((data) => 
+      {
+        setTotalTasks(data.total_obras)
+      }
+    )
+    }
+      catch (e) {console.log(e)}
+  }, [])
+
   return (
         <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8  lg:grid-cols-2 ">
           <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
@@ -106,7 +122,7 @@ export function HomePage() {
                 <CardHeader className="flex flex-row items-center">
                   <div className="grid gap-2">
                     <CardDescription>Este mes</CardDescription>
-                    <CardTitle className="text-4xl">25 Obras</CardTitle>
+                    <CardTitle className="text-4xl">{totalTasks}</CardTitle>
                   </div>
                   <Button asChild size="sm" className="ml-auto gap-1">
                     <a href="/obras">
