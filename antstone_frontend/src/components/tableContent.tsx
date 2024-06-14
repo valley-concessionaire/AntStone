@@ -30,6 +30,8 @@ import {
 } from "../components/ui/dropdown-menu"
 import { ObraConfig } from "./obraConfig"
 import { Fragment, useEffect, useState } from "react"
+import { TareaDeObra } from "../pages/obras/models/tarea-obra"
+import { Work } from "../pages/obras/obrasColumns"
 
 export function TableConf() {
   const [showObraConfig, setShowObraConfig] = useState(false)
@@ -460,7 +462,11 @@ export function TableConf() {
                     </Table>
           <ObraConfig isVisible={showObraConfig} onClose={() => setShowObraConfig(false)} onSave={function (): void {
                       throw new Error("Function not implemented.")
-                  } } />
+                  } 
+                }
+                  tareas={{} as TareaDeObra} 
+                  obra={{} as Work} 
+                  />
                 </CardContent>
                 <CardFooter>
                   <div className="text-xs text-muted-foreground">

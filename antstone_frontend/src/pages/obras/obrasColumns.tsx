@@ -14,7 +14,7 @@ import Director from "./models/director"
 // You can use a Zod schema here if you want.
 
 export type Work = {
-    id: string
+    id: number
     nombre: string,
     fecha_inicio: string,
     fecha_fin: string,
@@ -112,7 +112,10 @@ export function colObras(trig:(b:boolean, work:Work) => void) {
                             <span className="sr-only">Open menu</span>
                             <Pencil className="h-4 w-4"/>
                         </Button>
-                        <Button variant="ghost" className="h-8 w-8 p-0" onClick={() => navigator.clipboard.writeText(work.id)}>
+                        <Button 
+                            variant="ghost" 
+                            className="h-8 w-8 p-0" 
+                            onClick={() => navigator.clipboard.writeText(`${work.id}`)}>
                         {work.id}
                         </Button>
                     </div>

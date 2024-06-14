@@ -23,10 +23,11 @@ import { ObrasDataTable } from "./obrasDataTable"
 
 import { ObraConfig } from "../../components/obraConfig"
 import requests from "../../../src/shared/api/agent"
-import { GetObrasEndpoint, PostObrasEndpoint } from "../../../src/shared/api/api-urls"
+import { GetObrasEndpoint, GetTareasByObraIdEndpoint, PostObrasEndpoint } from "../../../src/shared/api/api-urls"
 import TableSkeleton from "../../../src/shared/components/TableSkeleton"
 import Gerente from "./models/gerente"
 import Director from "./models/director"
+import { TareaDeObra } from "./models/tarea-obra"
 
 
 interface ObrasPageProps<search> {
@@ -34,7 +35,7 @@ interface ObrasPageProps<search> {
 }
 
 interface WorkResponse {
-  id: string
+  id: number
   nombre: string,
   fecha_inicio: string,
   fecha_fin: string,
@@ -53,6 +54,7 @@ function ObrasPage<search> ({
   const [searchName, setSearchName] = useState("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [works, setWorks] = useState<Work | null>(null);
+  const [tareasByObras, setTareasByObras] = useState<TareaDeObra | null>(null);
 
   const [position, setPosition] = useState("Todo")
 
@@ -90,10 +92,23 @@ function ObrasPage<search> ({
     } 
   }
 
-  const handlerEditWork = (visible: boolean, work: Work) => {
+  const handlerEditWork = async (visible: boolean, work: Work)  => {
     setWorks(work)
-    setShowObraConfig(visible)
+    try {
+       setWorks(work) 
+       const tareaDeObra = await requests.get(GetTareasByObraIdEndpoint(work.id));
+       setTareasByObras(tareaDeObra);
+       setShowObraConfig(visible);
+    }
+    catch (error) {
+      console.log(error)
+    }
+    
+    
   }
+
+
+
 
   useEffect(() => {
     const filtraNombre = () => {
@@ -192,11 +207,15 @@ function ObrasPage<search> ({
         ))??[]} 
         filtered={statusFilter} 
         searching={searchName} />
-      <ObraConfig 
-        onSave={updateWorkRequest}
-        isVisible={showObraConfig} 
-        onClose={() => setShowObraConfig(false)} 
-      />
+        {
+          tareasByObras && works &&
+          <ObraConfig 
+            onSave={updateWorkRequest}
+            isVisible={showObraConfig}
+            onClose={() => setShowObraConfig(false)}
+            obra={works} 
+            tareas={tareasByObras}            />
+        }
     </div>
   }
   </>

@@ -7,3 +7,4 @@ export const PostObrasEndpoint = () =>  "/obras/";
 export const GetAvancesEndpoint =  "/avances/";
 export const PostAvancesEndpoint = () => "/avances/";
 export const GetTareasEndpoint =  "/tareas/";
+export const GetTareasByObraIdEndpoint = (obraId: number) => `obras/${obraId}/tareas/`;
