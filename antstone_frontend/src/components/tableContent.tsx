@@ -464,7 +464,7 @@ export function TableConf() {
                       throw new Error("Function not implemented.")
                   } 
                 }
-                  tareas={{} as TareaDeObra} 
+                  tareas={[]} 
                   obra={{} as Work} 
                   />
                 </CardContent>

@@ -1,0 +1,167 @@
+[
+    {
+        "id": 1,
+        "director": {
+            "id": 3,
+            "is_superuser": false,
+            "email": "director1@example.com",
+            "first_name": "Pedro",
+            "last_name": "Marin",
+            "is_staff": false,
+            "is_active": true,
+            "es_activo": true,
+            "experiencia": "",
+            "titulo": ""
+        },
+        "gerente": {
+            "id": 2,
+            "is_superuser": false,
+            "email": "gerente@example.com",
+            "first_name": "Sofia",
+            "last_name": "Andrade",
+            "is_staff": false,
+            "is_active": true,
+            "es_activo": true,
+            "experiencia": "",
+            "titulo": ""
+        },
+        "nombre": "Coliseo Central del Valle",
+        "fecha_inicio": "2024-05-11T00:00:00Z",
+        "fecha_fin": "2024-08-15T23:59:59Z",
+        "presupuesto": "2000000.00",
+        "estado": "IN_PROGRESS",
+        "es_activo": true
+    },
+    {
+        "id": 2,
+        "director": {
+            "id": 4,
+            "is_superuser": false,
+            "email": "director2@example.com",
+            "first_name": "Juan",
+            "last_name": "Castro",
+            "is_staff": false,
+            "is_active": true,
+            "es_activo": true,
+            "experiencia": "",
+            "titulo": ""
+        },
+        "gerente": {
+            "id": 2,
+            "is_superuser": false,
+            "email": "gerente@example.com",
+            "first_name": "Sofia",
+            "last_name": "Andrade",
+            "is_staff": false,
+            "is_active": true,
+            "es_activo": true,
+            "experiencia": "",
+            "titulo": ""
+        },
+        "nombre": "Estadio de Buga",
+        "fecha_inicio": "2024-06-12T00:00:00Z",
+        "fecha_fin": "2024-10-24T23:59:59Z",
+        "presupuesto": "1200000.00",
+        "estado": "IN_PROGRESS",
+        "es_activo": true
+    },
+    {
+        "id": 3,
+        "director": {
+            "id": 3,
+            "is_superuser": false,
+            "email": "director1@example.com",
+            "first_name": "Pedro",
+            "last_name": "Marin",
+            "is_staff": false,
+            "is_active": true,
+            "es_activo": true,
+            "experiencia": "",
+            "titulo": ""
+        },
+        "gerente": {
+            "id": 2,
+            "is_superuser": false,
+            "email": "gerente@example.com",
+            "first_name": "Sofia",
+            "last_name": "Andrade",
+            "is_staff": false,
+            "is_active": true,
+            "es_activo": true,
+            "experiencia": "",
+            "titulo": ""
+        },
+        "nombre": "Mall Plaza",
+        "fecha_inicio": "2023-02-01T00:00:00Z",
+        "fecha_fin": "2024-05-13T23:59:59Z",
+        "presupuesto": "2500000.00",
+        "estado": "COMPLETED",
+        "es_activo": true
+    },
+    {
+        "id": 4,
+        "director": {
+            "id": 5,
+            "is_superuser": false,
+            "email": "director3@example.com",
+            "first_name": "Mauricio",
+            "last_name": "Contreras",
+            "is_staff": false,
+            "is_active": true,
+            "es_activo": true,
+            "experiencia": "",
+            "titulo": ""
+        },
+        "gerente": {
+            "id": 2,
+            "is_superuser": false,
+            "email": "gerente@example.com",
+            "first_name": "Sofia",
+            "last_name": "Andrade",
+            "is_staff": false,
+            "is_active": true,
+            "es_activo": true,
+            "experiencia": "",
+            "titulo": ""
+        },
+        "nombre": "Condominio Los Laureles",
+        "fecha_inicio": "2024-06-14T00:00:00Z",
+        "fecha_fin": "2025-05-13T23:59:59Z",
+        "presupuesto": "1300000.00",
+        "estado": "PENDING",
+        "es_activo": true
+    },
+    {
+        "id": 5,
+        "director": {
+            "id": 4,
+            "is_superuser": false,
+            "email": "director2@example.com",
+            "first_name": "Juan",
+            "last_name": "Castro",
+            "is_staff": false,
+            "is_active": true,
+            "es_activo": true,
+            "experiencia": "",
+            "titulo": ""
+        },
+        "gerente": {
+            "id": 2,
+            "is_superuser": false,
+            "email": "gerente@example.com",
+            "first_name": "Sofia",
+            "last_name": "Andrade",
+            "is_staff": false,
+            "is_active": true,
+            "es_activo": true,
+            "experiencia": "",
+            "titulo": ""
+        },
+        "nombre": "Puente Matriz",
+        "fecha_inicio": "2024-04-04T00:00:00Z",
+        "fecha_fin": "2024-07-15T23:59:59Z",
+        "presupuesto": "250000.00",
+        "estado": "IN_PROGRESS",
+        "es_activo": true
+    }
+]
