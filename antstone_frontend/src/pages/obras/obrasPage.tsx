@@ -197,11 +197,10 @@ function ObrasPage<search> ({
       Skeleton() :
     <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
       <div className="flex items-center gap-2">
-        {/*
         <div className="">
           <div className="flex items-center py-4">
             <Input
-            placeholder="Filtrar por nombre...2"
+            placeholder="Filtrar por nombre..."
             onChange={(event) =>
               setSearchName(event.target.value)
             }
@@ -209,7 +208,6 @@ function ObrasPage<search> ({
             />
           </div>
         </div>
-          */}
         <div className="ml-auto">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

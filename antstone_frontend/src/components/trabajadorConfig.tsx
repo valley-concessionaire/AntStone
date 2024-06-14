@@ -32,10 +32,20 @@ import {
   TableRow,
 } from "../components/ui/table"
 import { Textarea } from "../components/ui/textarea"
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion"
+
+
 import {
   ToggleGroup,
   ToggleGroupItem,
 } from "../components/ui/toggle-group"
+import { AccordionHeader } from "@radix-ui/react-accordion"
 
 export function TrabajadorConfig({isVisible, onClose}: {isVisible: boolean, onClose: () => void}) {
   if (!isVisible) return null
@@ -44,252 +54,145 @@ export function TrabajadorConfig({isVisible, onClose}: {isVisible: boolean, onCl
       <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4 m-4">
         <div className="flex items-center gap-4">
           <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-            Pro Controller
+            Trabajador0
           </h1>
           <Badge variant="outline" className="ml-auto sm:ml-0">
-            In stock
+            Activo
           </Badge>
           <div className="hidden items-center gap-2 md:ml-auto md:flex">
             <Button variant="outline" size="sm" onClick={() => onClose()}>
-              Discard
+              Descartar
             </Button>
-            <Button size="sm">Save Product</Button>
+            <Button size="sm">Guardar cambios</Button>
           </div>
         </div>
         <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
           <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
             <Card x-chunk="dashboard-07-chunk-0">
               <CardHeader>
-                <CardTitle>Product Details</CardTitle>
+                <CardTitle>Detalles</CardTitle>
                 <CardDescription>
-                  Lipsum dolor sit amet, consectetur adipiscing elit
+                  Gestione los datos del trabajador
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-6">
                   <div className="grid gap-3">
-                    <Label htmlFor="name">Name</Label>
+                    <Label htmlFor="name">Nombre</Label>
                     <Input
                       id="name"
                       type="text"
                       className="w-full"
-                      defaultValue="Gamer Gear Pro Controller"
+                      defaultValue="Nombre del trabajador"
                     />
                   </div>
                   <div className="grid gap-3">
-                    <Label htmlFor="description">Description</Label>
-                    <Textarea
-                      id="description"
-                      defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc."
-                      className="min-h-32"
+                    <Label htmlFor="name">Cedula</Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      className="w-full"
+                      defaultValue="Cedula del trabajador"
+                    />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="name">Contraseña</Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      className="w-full"
+                      defaultValue="Contraseña del trabajador"
                     />
                   </div>
                 </div>
               </CardContent>
+              <CardFooter className="border-t p-4">
+              </CardFooter>
             </Card>
             <Card x-chunk="dashboard-07-chunk-1">
               <CardHeader>
-                <CardTitle>Stock</CardTitle>
+                <CardTitle>Trabajos asignados</CardTitle>
                 <CardDescription>
-                  Lipsum dolor sit amet, consectetur adipiscing elit
+                  Revise los trabajos asignados a este trabajador
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-[100px]">SKU</TableHead>
-                      <TableHead>Stock</TableHead>
-                      <TableHead>Price</TableHead>
-                      <TableHead className="w-[100px]">Size</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell className="font-semibold">
-                        GGPC-001
-                      </TableCell>
-                      <TableCell>
-                        <Label htmlFor="stock-1" className="sr-only">
-                          Stock
-                        </Label>
-                        <Input
-                          id="stock-1"
-                          type="number"
-                          defaultValue="100"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Label htmlFor="price-1" className="sr-only">
-                          Price
-                        </Label>
-                        <Input
-                          id="price-1"
-                          type="number"
-                          defaultValue="99.99"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <ToggleGroup
-                          type="single"
-                          defaultValue="s"
-                          variant="outline"
-                        >
-                          <ToggleGroupItem value="s">S</ToggleGroupItem>
-                          <ToggleGroupItem value="m">M</ToggleGroupItem>
-                          <ToggleGroupItem value="l">L</ToggleGroupItem>
-                        </ToggleGroup>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="font-semibold">
-                        GGPC-002
-                      </TableCell>
-                      <TableCell>
-                        <Label htmlFor="stock-2" className="sr-only">
-                          Stock
-                        </Label>
-                        <Input
-                          id="stock-2"
-                          type="number"
-                          defaultValue="143"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Label htmlFor="price-2" className="sr-only">
-                          Price
-                        </Label>
-                        <Input
-                          id="price-2"
-                          type="number"
-                          defaultValue="99.99"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <ToggleGroup
-                          type="single"
-                          defaultValue="m"
-                          variant="outline"
-                        >
-                          <ToggleGroupItem value="s">S</ToggleGroupItem>
-                          <ToggleGroupItem value="m">M</ToggleGroupItem>
-                          <ToggleGroupItem value="l">L</ToggleGroupItem>
-                        </ToggleGroup>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="font-semibold">
-                        GGPC-003
-                      </TableCell>
-                      <TableCell>
-                        <Label htmlFor="stock-3" className="sr-only">
-                          Stock
-                        </Label>
-                        <Input
-                          id="stock-3"
-                          type="number"
-                          defaultValue="32"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Label htmlFor="price-3" className="sr-only">
-                          Stock
-                        </Label>
-                        <Input
-                          id="price-3"
-                          type="number"
-                          defaultValue="99.99"
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <ToggleGroup
-                          type="single"
-                          defaultValue="s"
-                          variant="outline"
-                        >
-                          <ToggleGroupItem value="s">S</ToggleGroupItem>
-                          <ToggleGroupItem value="m">M</ToggleGroupItem>
-                          <ToggleGroupItem value="l">L</ToggleGroupItem>
-                        </ToggleGroup>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+                <Accordion type="single" collapsible>
+                  <AccordionItem value="item-1">
+                    <AccordionTrigger>Obra1</AccordionTrigger>
+                    <AccordionContent>
+                    <p className="font-bold text-base">Tareas</p>
+                    <p>Tarea0</p>
+                    <p>Tarea1</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item-2">
+                    <AccordionTrigger>Obra2</AccordionTrigger>
+                    <AccordionContent>
+                    <AccordionHeader>
+                    <p className="font-bold text-base">Tareas</p>
+                    <p>Tarea0</p>
+                    <p>Tarea1</p>
+                    <p>Tarea2</p>
+                    <p>Tarea3</p>
+                    </AccordionHeader>
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item-3">
+                    <AccordionTrigger>Obra3</AccordionTrigger>
+                    <AccordionContent>
+                    <AccordionHeader>
+                    <p className="font-bold text-base">Tareas</p>
+                    <p>Tarea0</p>
+                    <p>Tarea1</p>
+                    <p>Tarea2</p>
+                    </AccordionHeader>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
               </CardContent>
-              <CardFooter className="justify-center border-t p-4">
-                <Button size="sm" variant="ghost" className="gap-1">
-                  <PlusCircle className="h-3.5 w-3.5" />
-                  Add Variant
-                </Button>
+              <CardFooter className="border-t p-4">
               </CardFooter>
-            </Card>
-            <Card x-chunk="dashboard-07-chunk-2">
-              <CardHeader>
-                <CardTitle>Product Category</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid gap-6 sm:grid-cols-3">
-                  <div className="grid gap-3">
-                    <Label htmlFor="category">Category</Label>
-                    <Select>
-                      <SelectTrigger
-                        id="category"
-                        aria-label="Select category"
-                      >
-                        <SelectValue placeholder="Select category" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="clothing">Clothing</SelectItem>
-                        <SelectItem value="electronics">
-                          Electronics
-                        </SelectItem>
-                        <SelectItem value="accessories">
-                          Accessories
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="grid gap-3">
-                    <Label htmlFor="subcategory">
-                      Subcategory (optional)
-                    </Label>
-                    <Select>
-                      <SelectTrigger
-                        id="subcategory"
-                        aria-label="Select subcategory"
-                      >
-                        <SelectValue placeholder="Select subcategory" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="t-shirts">T-Shirts</SelectItem>
-                        <SelectItem value="hoodies">Hoodies</SelectItem>
-                        <SelectItem value="sweatshirts">
-                          Sweatshirts
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </CardContent>
             </Card>
           </div>
           <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
             <Card x-chunk="dashboard-07-chunk-3">
               <CardHeader>
-                <CardTitle>Product Status</CardTitle>
+                <CardTitle>Estado</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-6">
                   <div className="grid gap-3">
-                    <Label htmlFor="status">Status</Label>
+                    <Label htmlFor="status">Estado</Label>
                     <Select>
                       <SelectTrigger id="status" aria-label="Select status">
-                        <SelectValue placeholder="Select status" />
+                        <SelectValue placeholder="Seleccione el estado"/>
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="draft">Draft</SelectItem>
-                        <SelectItem value="published">Active</SelectItem>
-                        <SelectItem value="archived">Archived</SelectItem>
+                        <SelectItem value="active">Activo</SelectItem>
+                        <SelectItem value="inactive">Inactivo</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card x-chunk="dashboard-07-chunk-4">
+              <CardHeader>
+                <CardTitle>Rol</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-6">
+                  <div className="grid gap-3">
+                    <Label htmlFor="status">Rol</Label>
+                    <Select>
+                      <SelectTrigger id="status" aria-label="Select role">
+                        <SelectValue placeholder="Seleccione el rol"/>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="capataz">Capataz</SelectItem>
+                        <SelectItem value="pawn">Peon</SelectItem>
+                        <SelectItem value="nose">Nose</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -297,12 +200,12 @@ export function TrabajadorConfig({isVisible, onClose}: {isVisible: boolean, onCl
               </CardContent>
             </Card>
             <Card
-              className="overflow-hidden" x-chunk="dashboard-07-chunk-4"
+              className="overflow-hidden" x-chunk="dashboard-07-chunk-5"
             >
               <CardHeader>
-                <CardTitle>Product Images</CardTitle>
+                <CardTitle>Identificacion</CardTitle>
                 <CardDescription>
-                  Lipsum dolor sit amet, consectetur adipiscing elit
+                  Identificacion del trabajador
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -315,24 +218,6 @@ export function TrabajadorConfig({isVisible, onClose}: {isVisible: boolean, onCl
                     width="300"
                   />
                   <div className="grid grid-cols-3 gap-2">
-                    <button>
-                      <img
-                        alt="Product image"
-                        className="aspect-square w-full rounded-md object-cover"
-                        height="84"
-                        src="/placeholder.svg"
-                        width="84"
-                      />
-                    </button>
-                    <button>
-                      <img
-                        alt="Product image"
-                        className="aspect-square w-full rounded-md object-cover"
-                        height="84"
-                        src="/placeholder.svg"
-                        width="84"
-                      />
-                    </button>
                     <button className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed">
                       <Upload className="h-4 w-4 text-muted-foreground" />
                       <span className="sr-only">Upload</span>
@@ -341,27 +226,7 @@ export function TrabajadorConfig({isVisible, onClose}: {isVisible: boolean, onCl
                 </div>
               </CardContent>
             </Card>
-            <Card x-chunk="dashboard-07-chunk-5">
-              <CardHeader>
-                <CardTitle>Archive Product</CardTitle>
-                <CardDescription>
-                  Lipsum dolor sit amet, consectetur adipiscing elit.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div></div>
-                <Button size="sm" variant="secondary">
-                  Archive Product
-                </Button>
-              </CardContent>
-            </Card>
           </div>
-        </div>
-        <div className="flex items-center justify-center gap-2 md:hidden">
-          <Button variant="outline" size="sm">
-            Discard
-          </Button>
-          <Button size="sm">Save Product</Button>
         </div>
       </div>
     </div>

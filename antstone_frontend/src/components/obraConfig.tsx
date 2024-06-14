@@ -1,6 +1,7 @@
 import {
     PlusCircle,
     Pencil,
+    CircleMinus,
 } from "lucide-react"
 
 import { Badge } from "../components/ui/badge"
@@ -48,6 +49,9 @@ import {
 
 import TrabajadoresPage from "../pages/trabajadores/trabajadoresPage"
 import { TareaConfig } from "./tareaConfig"
+import { Tooltip, TooltipTrigger } from "@radix-ui/react-tooltip"
+import { TooltipContent, TooltipProvider } from "./ui/tooltip"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog"
 
 interface Props {
     isVisible: boolean, 
@@ -97,18 +101,18 @@ export function ObraConfig(
         <div className="grid flex-1 transition ease-in items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 fixed inset-0 bg-black bg-opacity-75 backdrop-blur-md z-50 max-w-full max-h-full overflow-auto">
             <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4 m-4">
                 <div className="flex items-center gap-4">
-                <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0 text-white">
-                    Laser Lemonade Machine
-                </h1>
-                <Badge variant="outline" className="ml-auto sm:ml-0 text-white">
-                    Inactiva
-                </Badge>
-                <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                    <Button variant="outline" size="sm" onClick={() => onClose()}>
-                    Descartar
-                    </Button>
-                    <Button  onClick={onSave} size="sm">Guardar cambios</Button>
-                </div>
+                    <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0 text-white">
+                        Laser Lemonade Machine
+                    </h1>
+                    <Badge variant="outline" className="ml-auto sm:ml-0 text-white">
+                        Inactiva
+                    </Badge>
+                    <div className="hidden items-center gap-2 md:ml-auto md:flex">
+                        <Button variant="outline" size="sm" onClick={() => onClose()}>
+                        Descartar
+                        </Button>
+                        <Button  onClick={onSave} size="sm">Guardar cambios</Button>
+                    </div>
                 </div>
                 <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
                     <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
@@ -116,7 +120,7 @@ export function ObraConfig(
                             <CardHeader>
                                 <CardTitle>Detalles de Obra</CardTitle>
                                 <CardDescription>
-                                Añada un nombre y una descripcion a la obra
+                                    Añada un nombre y una descripcion a la obra
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
@@ -151,112 +155,62 @@ export function ObraConfig(
                             <CardContent>
                                 
                                 <Table>
-                                    <ScrollArea className="h-[200px]">
+                                    <ScrollArea className=" max-h-[200px]">
                                         <TableHeader>
                                             <TableRow>
                                                 <TableHead className="w-[100px]">Nombre</TableHead>
                                                 <TableHead>Rol</TableHead>
                                                 <TableHead>estado?</TableHead>
-                                                <TableHead className="w-[100px]">Asignaciones</TableHead>
+                                                <TableHead>Asignaciones</TableHead>
+                                                <TableHead className="w-[50px]"></TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-                                                <TableRow>
-                                                    <TableCell className="font-semibold">
-                                                        Trabajador007
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Maestro
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Activo?
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        4
-                                                    </TableCell>
-                                                </TableRow>
 
-                                                <TableRow>
-                                                    <TableCell className="font-semibold">
-                                                        Trabajador3
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Maestro
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Activo?
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        4
-                                                    </TableCell>
-                                                </TableRow>
-
-                                                <TableRow>
-                                                    <TableCell className="font-semibold">
-                                                        Trabajador45
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Maestro
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Activo?
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        4
-                                                    </TableCell>
-                                                </TableRow>
-
-                                                <TableRow>
-                                                    <TableCell className="font-semibold">
-                                                        Trabajador11
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Maestro
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Activo?
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        4
-                                                    </TableCell>
-                                                </TableRow>
-
-                                                <TableRow>
-                                                    <TableCell className="font-semibold">
-                                                        Trabajador2
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Label htmlFor="stock-2" className="sr-only">
-                                                        Stock
-                                                        </Label>
-                                                        <Input
-                                                        id="stock-2"
-                                                        type="number"
-                                                        defaultValue="143"
-                                                        />
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Label htmlFor="price-2" className="sr-only">
-                                                        Price
-                                                        </Label>
-                                                        <Input
-                                                        id="price-2"
-                                                        type="number"
-                                                        defaultValue="99.99"
-                                                        />
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <ToggleGroup
-                                                        type="single"
-                                                        defaultValue="m"
-                                                        variant="outline"
-                                                        >
-                                                        <ToggleGroupItem value="s">S</ToggleGroupItem>
-                                                        <ToggleGroupItem value="m">M</ToggleGroupItem>
-                                                        <ToggleGroupItem value="l">L</ToggleGroupItem>
-                                                        </ToggleGroup>
-                                                    </TableCell>
-                                                </TableRow>
+                                            <TableRow>
+                                                <TableCell className="font-semibold">
+                                                    Trabajador3
+                                                </TableCell>
+                                                <TableCell>
+                                                    Maestro
+                                                </TableCell>
+                                                <TableCell>
+                                                    Activo?
+                                                </TableCell>
+                                                <TableCell>
+                                                    8
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Dialog>
+                                                        <DialogTrigger>
+                                                            <TooltipProvider>
+                                                                <Tooltip>
+                                                                    <TooltipTrigger asChild>
+                                                                        <Button variant="ghost" className="md:h-8 md:w-8 p-0 rounded-full text-muted-foreground">
+                                                                            <CircleMinus className="h-4 w-4"/>
+                                                                        </Button>
+                                                                    </TooltipTrigger>
+                                                                    <TooltipContent side="right">Desvincular</TooltipContent>
+                                                                </Tooltip>
+                                                            </TooltipProvider>
+                                                        </DialogTrigger>
+                                                        <DialogContent>
+                                                            <DialogHeader>
+                                                                <DialogTitle>
+                                                                    Desvincular trabajador
+                                                                </DialogTitle>
+                                                                <DialogDescription>
+                                                                    ¿Está seguro de desvincular al trabajador [nombre] de la obra [nombre?]?
+                                                                    Sus tareas seguirán en la obra [nose] / Sus tareas se eliminarán.
+                                                                </DialogDescription>
+                                                            </DialogHeader>
+                                                            <DialogFooter>
+                                                                <Button variant="outline">Confirmar</Button>
+                                                            </DialogFooter>
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </TableCell>
+                                            </TableRow>
                                             
                                         </TableBody>
                                     </ScrollArea>
@@ -278,7 +232,9 @@ export function ObraConfig(
                                             <SheetDescription>
                                                 Añada trabajadores disponibles a la obra.
                                             </SheetDescription>
-                                            <TrabajadoresPage search={""} isForEditing={false} />
+                                            <ScrollArea className=" max-h-[80vh] overflow-auto">
+                                                <TrabajadoresPage search={""} isForEditing={false}/>
+                                            </ScrollArea>
                                         </SheetHeader>
                                     </SheetContent>
                                 </Sheet>
@@ -302,7 +258,7 @@ export function ObraConfig(
                                                 <TableHead>Estado</TableHead>
                                                 <TableHead>Asignado a</TableHead>
                                                 <TableHead>Avances</TableHead>
-                                                <TableHead className="w-[100px]"></TableHead>
+                                                <TableHead className="w-[10px]"></TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         {false ?
@@ -384,7 +340,7 @@ export function ObraConfig(
                         </Card>
                     </div>
                     <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-                        <Card x-chunk="dashboard-07-chunk-4">
+                        <Card x-chunk="dashboard-07-chunk-3">
                         <CardHeader>
                             <CardTitle>Estado de la Obra</CardTitle>
                         </CardHeader>
@@ -407,7 +363,7 @@ export function ObraConfig(
                         </CardContent>
                         </Card>
                         <Card
-                        className="overflow-hidden" x-chunk="dashboard-07-chunk-5"
+                        className="overflow-hidden" x-chunk="dashboard-07-chunk-4"
                         >
                             <CardHeader>
                                 <CardTitle>Imagenes de Obra</CardTitle>
@@ -445,19 +401,6 @@ export function ObraConfig(
                                         </button>
                                     </div>
                                 </div>
-                            </CardContent>
-                        </Card>
-                        <Card x-chunk="dashboard-07-chunk-6">
-                            <CardHeader>
-                                <CardTitle>Archivar Obra</CardTitle>
-                                <CardDescription>
-                                    Archive la obra
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <Button size="sm" variant="secondary">
-                                    Archivar Obra
-                                </Button>
                             </CardContent>
                         </Card>
                     </div>
