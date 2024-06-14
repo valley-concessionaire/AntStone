@@ -1,9 +1,6 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from django.contrib.auth import get_user_model
-from .models import Capataz, DirectorDeObra, Gerente
 
-User = get_user_model()
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -22,8 +19,6 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Determine user type
         user_type = 'Regular User'
-        print("Tipo de usuario")
-        print(User)
         if hasattr(self.user, 'capataz'):
             user_type = 'Capataz'
         elif hasattr(self.user, 'directordeobra'):

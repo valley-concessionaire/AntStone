@@ -10,8 +10,12 @@ router.register(r'tareas', TareaDeObraViewSet, basename='tarea')
 router.register(r'avances', AvanceDeTareaViewSet, basename='avance')
 router.register(r'imagenavances', ImagenAvanceViewSet, basename='imagen_avance')
 
+obras_router = DefaultRouter()
+obras_router.register(r'tareas', TareaDeObraViewSet, basename='obra-tareas')
+
 urlpatterns = [
     path('', include(router.urls)),
+    path('obras/<int:obra_pk>/', include(obras_router.urls)),
     path('first_api_view/', api_views.first_api_view),
     path('docs/', include_docs_urls(title='Antstone API')),
 ]

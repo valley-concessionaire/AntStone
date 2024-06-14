@@ -23,106 +23,39 @@ import { ObrasDataTable } from "./obrasDataTable"
 
 import { ObraConfig } from "../../components/obraConfig"
 import requests from "../../../src/shared/api/agent"
-import { GetObrasEndpoint, PostObrasEndpoint } from "../../../src/shared/api/api-urls"
+import { GetObrasEndpoint, GetTareasByObraIdEndpoint, PostObrasEndpoint } from "../../../src/shared/api/api-urls"
 import TableSkeleton from "../../../src/shared/components/TableSkeleton"
-import { ProgressDemo } from "../../components/progressDemo"
+import Gerente from "./models/gerente"
+import Director from "./models/director"
+import { TareaDeObra } from "./models/tarea-obra"
 
-async function getData(): Promise<Work[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "Obra1",
-      name: "Obra 1",
-      cost: 316,
-      status: "pendiente",
-      master: "Juan",
-    },
-    {
-        id: "3u1reuv4",
-        name: "Obra 2",
-        cost: 242,
-        status: "cancelada",
-        master: "Pedro",
-    },
-    {
-        id: "derv1ws0",
-        name: "Obra 3",
-        cost: 837,
-        status: "procesando",
-        master: "Cecilia",
-    },
-    {
-        id: "5k212153ae",
-        name: "Obra 4",
-        cost: 874,
-        status: "terminada",
-        master: "Nemo",
-    },
-    {
-      id: "5kmh2hae",
-      name: "Obra 5",
-      cost: 102,
-      status: "terminada",
-      master: "Nemo",
-    },
-    {
-      id: "5kma32jkhe",
-      name: "Obra 6",
-      cost: 870,
-      status: "cancelada",
-      master: "Maria",
-    },
-    {
-      id: "23809h3ae",
-      name: "Obra 7",
-      cost: 273,
-      status: "cancelada",
-      master: "Pedro",
-    },
-    {
-      id: "32io9a53ae",
-      name: "Obra 8",
-      cost: 834,
-      status: "procesando",
-      master: "Pedra",
-    },
-    {
-      id: "k2j3983ae",
-      name: "Obra 9",
-      cost: 816,
-      status: "cancelada",
-      master: "Piedra",
-    },
-    {
-      id: "j239783ae",
-      name: "Obra 10",
-      cost: 294,
-      status: "cancelada",
-      master: "Sancocho",
-    },
-    {
-      id: "sakloi18w",
-      name: "Obra 11",
-      cost: 729,
-      status: "terminada",
-      master: "Juanes",
-    },
-  ]
-}
+import { ProgressDemo } from "../../components/progressDemo"
 
 interface ObrasPageProps<search> {
   search: string
 }
 
+interface WorkResponse {
+  id: number
+  nombre: string,
+  fecha_inicio: string,
+  fecha_fin: string,
+  presupuesto: number,
+  estado: string,
+  gerente: Gerente,
+  director: Director
+}
+
 function ObrasPage<search> ({
   search
   }: ObrasPageProps<search>) {
-  const [data, setData] = useState<Work[] | null>(null); // Initialize data to null to avoid potential errors
+  const [data, setData] = useState<WorkResponse[] | null>(null); // Initialize data to null to avoid potential errors
   const [showObraConfig, setShowObraConfig] = useState(false)
   const [statusFilter, setstatusFilter] = useState("")
   const [searchName, setSearchName] = useState("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [works, setWorks] = useState<Work | null>(null);
+  const [tareasByObras, setTareasByObras] = useState<TareaDeObra | null>(null);
 
   const [position, setPosition] = useState("Todo")
 
@@ -160,10 +93,23 @@ function ObrasPage<search> ({
     } 
   }
 
-  const handlerEditWork = (visible: boolean, work: Work) => {
+  const handlerEditWork = async (visible: boolean, work: Work)  => {
     setWorks(work)
-    setShowObraConfig(visible)
+    try {
+       setWorks(work) 
+       const tareaDeObra = await requests.get(GetTareasByObraIdEndpoint(work.id));
+       setTareasByObras(tareaDeObra);
+       setShowObraConfig(visible);
+    }
+    catch (error) {
+      console.log(error)
+    }
+    
+    
   }
+
+
+
 
   useEffect(() => {
     const filtraNombre = () => {
@@ -178,7 +124,7 @@ function ObrasPage<search> ({
       setIsLoading(true)
       try {
         const r = await requests.get(GetObrasEndpoint());
-        const fetchedData = await  getData()//requests.get(GetObrasEndpoint()); // Call your asynchronous function
+        const fetchedData = await requests.get(GetObrasEndpoint()); // Call your asynchronous function
         setData(fetchedData);
         setIsLoading(false)
       } catch (error) {
@@ -246,14 +192,29 @@ function ObrasPage<search> ({
       </div>
       <ObrasDataTable 
         columns={colObras(handlerEditWork)} 
-        data={data??[]} 
+        data={data?.map((work) => (
+          {
+            id: work.id,
+            nombre: work.nombre,
+            fecha_inicio: work.fecha_inicio,
+            fecha_fin: work.fecha_fin,
+            presupuesto: work.presupuesto,
+            estado: work.estado,
+            director: work.director.first_name + " " + work.director.last_name,
+            gerente: work.gerente.first_name + " " + work.gerente.last_name
+          }
+        ))??[]} 
         filtered={statusFilter} 
         searching={searchName} />
-      <ObraConfig 
-        onSave={updateWorkRequest}
-        isVisible={showObraConfig} 
-        onClose={() => setShowObraConfig(false)} 
-      />
+        {
+          tareasByObras && works &&
+          <ObraConfig 
+            onSave={updateWorkRequest}
+            isVisible={showObraConfig}
+            onClose={() => setShowObraConfig(false)}
+            obra={works} 
+            tareas={tareasByObras}            />
+        }
     </div>
   }
   </>

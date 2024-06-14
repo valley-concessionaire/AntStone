@@ -22,11 +22,11 @@ class GerenteSerializer(serializers.ModelSerializer):
 class PeonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Peon
-        fields = '__all__'
+        exclude = ['user_permissions', 'groups', 'date_joined', 'last_login']
         extra_kwargs = {"password": {"write_only": True}}
 
 class AyudanteDeAlbanilSerializer(serializers.ModelSerializer):
     class Meta:
         model = AyudanteDeAlbanil
-        fields = '__all__'
+        exclude = ['user_permissions', 'groups', 'date_joined', 'last_login']
         extra_kwargs = {"password": {"write_only": True}}
