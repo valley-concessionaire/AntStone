@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'antstone_api',
-    'coreapi',
+    # 'coreapi',
     'users',
     'rest_framework',
     'rest_framework_simplejwt',
@@ -177,6 +177,6 @@ STATICFILES_DIRS = [
 CORS_ALLOW_ALL_ORIGINS = True
 CORPS_ALLOW_CREDENTIALS = True 
 
-REST_FRAMEWORK = {
-    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
-}
+# REST_FRAMEWORK = {
+#     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+# }
