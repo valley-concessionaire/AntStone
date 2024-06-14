@@ -13,6 +13,13 @@ class TareaDeObraViewSet(viewsets.ModelViewSet):
     serializer_class = TareaDeObraSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        queryset = TareaDeObra.objects.all()
+        obra_id = self.kwargs.get('obra_pk')
+        if obra_id is not None:
+            queryset = queryset.filter(obra_id=obra_id)
+        return queryset
+
 class AvanceDeTareaViewSet(viewsets.ModelViewSet):
     queryset = AvanceDeTarea.objects.all()
 

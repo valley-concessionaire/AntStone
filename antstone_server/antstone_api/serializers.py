@@ -1,4 +1,4 @@
-from users.serializers import DirectorDeObraSerializer, GerenteSerializer
+from users.serializers import AyudanteDeAlbanilSerializer, DirectorDeObraSerializer, GerenteSerializer, PeonSerializer
 from rest_framework import serializers
 from .models import Obra, TareaDeObra, AvanceDeTarea, ImagenAvance
 
@@ -10,6 +10,11 @@ class ObraSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TareaDeObraSerializer(serializers.ModelSerializer):
+
+    obra = ObraSerializer(read_only=True)
+    peones = PeonSerializer(many=True, read_only=True)
+    ayudantes_de_albanil = AyudanteDeAlbanilSerializer(many=True, read_only=True)
+
     class Meta:
         model = TareaDeObra
         fields = '__all__'
