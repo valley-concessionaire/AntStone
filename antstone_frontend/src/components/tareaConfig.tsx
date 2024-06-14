@@ -1,7 +1,8 @@
 import {
     PlusCircle,
     Pencil,
-    CircleX
+    CircleX,
+    Upload,
 } from "lucide-react"
 
 import { Badge } from "../components/ui/badge"
@@ -129,7 +130,7 @@ export function TareaConfig(
                                     <CardContent>
                                         
                                         <Table>
-                                            <ScrollArea className=" max-h-[200px]">
+                                            <ScrollArea className=" max-h-[300px]">
                                                 <TableHeader>
                                                     <TableRow>
                                                         <TableHead className="w-[100px]">Nombre</TableHead>
@@ -224,46 +225,88 @@ export function TareaConfig(
                                     </CardFooter>
                                 </Card>
                                 {isManagingAvance ?
-                                <Card x-chunk="dashboard-07-chunk-3">
-                                    <CardHeader className="flex">
-                                        <div className="flex">
-                                            <a className=" font-bold text-lg">Añadir Avance</a>
-                                            <Button variant="ghost" className="rounded-full p-3 ml-auto" onClick={() => setIsManagingAvance(false)}>
-                                                <CircleX className="h-4 w-4"/>
-                                            </Button>
-                                        </div>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="grid gap-6">
-                                            <div className="grid gap-3">
-                                                <Label htmlFor="description">Descripcion</Label>
-                                                <Textarea
-                                                    id="description"
-                                                    placeholder="Describa el avance brevemente"
-                                                    className="min-h-28"
-                                                />
-                                            </div>
-                                            <div className="grid gap-3">
-                                                <Label htmlFor="name">Fecha</Label>
-                                                <Input
-                                                    id="date"
-                                                    type="text"
-                                                    className="w-full"
-                                                    placeholder="Fecha del avance"
-                                                />
-                                                
-                                            </div>
-                                            {/*<DatePickerDemo/> must be checked*/}
-                                            <div className="grid gap-3">
-                                                <Button onClick={() => setIsManagingAvance(false)}>
-                                                    Guardar
+                                    <Card x-chunk="dashboard-07-chunk-3" className=" w-[250px]">
+                                        <CardHeader className="flex">
+                                            <div className="flex">
+                                                <a className=" font-bold text-lg">Añadir Avance</a>
+                                                <Button variant="ghost" className="rounded-full p-3 ml-auto" onClick={() => setIsManagingAvance(false)}>
+                                                    <CircleX className="h-4 w-4"/>
                                                 </Button>
                                             </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                                :
-                                null
+                                        </CardHeader>
+                                        <CardContent>
+                                            <div className="grid gap-6">
+                                                <div className="grid gap-3">
+                                                    <Label htmlFor="description">Notas</Label>
+                                                    <Textarea
+                                                        id="description"
+                                                        placeholder="Agrege notas del avance"
+                                                        className="min-h-28"
+                                                    />
+                                                </div>
+                                                <div className="grid gap-3">
+                                                    <Label htmlFor="name">Coordenadas-x</Label>
+                                                    <Input
+                                                        id="date"
+                                                        type="text"
+                                                        className="w-full"
+                                                        placeholder="x..."
+                                                    />
+                                                </div>
+                                                <div className="grid gap-3">
+                                                    <Label htmlFor="name">Coordenadas-y</Label>
+                                                    <Input
+                                                        id="date"
+                                                        type="text"
+                                                        className="w-full"
+                                                        placeholder="y..."
+                                                    />
+                                                </div>
+                                                <div className="grid gap-3">
+                                                    <Label htmlFor="name">Progreso</Label>
+                                                    <Input
+                                                        id="date"
+                                                        type="text"
+                                                        className="w-full"
+                                                        placeholder="..."
+                                                    />
+                                                </div>
+                                                <div className="grid gap-3">
+                                                    <Label htmlFor="name">Imagenes</Label>
+                                                    <div className="grid grid-cols-3 gap-2">
+                                                        <img
+                                                            alt="AvanceImage0"
+                                                            className="aspect-square w-full rounded-md object-cover"
+                                                            height="60"
+                                                            src="/placeholder.svg"
+                                                            width="60"
+                                                        />
+                                                        <img
+                                                            alt="AvanceImage1"
+                                                            className="aspect-square w-full rounded-md object-cover"
+                                                            height="60"
+                                                            src="/placeholder.svg"
+                                                            width="60"
+                                                        />
+                                                    </div>
+                                                    <div className="grid grid-cols-3 gap-2 ">
+                                                        <button className="flex aspect-square items-center justify-center rounded-md border border-dashed h-8 w-8">
+                                                            <Upload className="h-4 w-4 text-muted-foreground" />
+                                                            <span className="sr-only">Subir</span>
+                                                        </button>
+                                                        Subir
+                                                    </div>
+                                                </div>
+                                                <div className="grid gap-3">
+                                                    <Button onClick={() => setIsManagingAvance(false)}>
+                                                        Guardar
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                    :
+                                    null
                                 }
                             </div>
                             
