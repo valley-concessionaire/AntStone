@@ -25,7 +25,7 @@ import { ObraConfig } from "../../components/obraConfig"
 import requests from "../../../src/shared/api/agent"
 import { GetObrasEndpoint, PostObrasEndpoint } from "../../../src/shared/api/api-urls"
 import TableSkeleton from "../../../src/shared/components/TableSkeleton"
-
+import { ProgressDemo } from "../../components/progressDemo"
 
 async function getData(): Promise<Work[]> {
   // Fetch data from your API here.
@@ -195,22 +195,20 @@ function ObrasPage<search> ({
   return <>
     {isLoading ?
       Skeleton() :
-    <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+    <div className="grid flex-1 items-start gap-2 sm:px-6 md:gap-4">
       <div className="flex items-center gap-2">
-        {/*
-        <div className="">
-          <div className="flex items-center py-4">
+        <div >
+          <div className="flex items-center ">
             <Input
-            placeholder="Filtrar por nombre...2"
+            placeholder="Filtrar por nombre..."
             onChange={(event) =>
               setSearchName(event.target.value)
             }
-            className="max-w-sm min-w-max"
+            className="w-60"
             />
           </div>
         </div>
-          */}
-        <div className="ml-auto">
+        <div className="ml-auto flex gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" className="h-7 gap-1">
