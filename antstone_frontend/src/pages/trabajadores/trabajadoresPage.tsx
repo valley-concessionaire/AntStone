@@ -27,6 +27,7 @@ import requests from "../../shared/api/agent"
 import { GetACapatazEndpoint, GetAyudanteDeAbanilEndpoint } from "../../shared/api/api-urls"
 import { useParams } from 'react-router-dom';
 import TableSkeleton from "../../../src/shared/components/TableSkeleton"
+import { Input } from "../../../src/components/ui/input"
 
 
 export function TrabajadoresPage2() {
@@ -111,6 +112,7 @@ interface Props<search, isForEditing> {
   isForEditing: boolean
 }
 
+
 function TrabajadoresPage<search, isForEditing>({
   search,
   isForEditing
@@ -167,9 +169,20 @@ function TrabajadoresPage<search, isForEditing>({
     {isLoading ?
       Skeleton() :
       <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-
-        {isForEditing ? 
-          <div className="ml-auto flex items-center gap-2">
+        
+        
+        <div className="flex items-center gap-2">
+          <div className="flex items-center py-4">
+            <Input
+            placeholder="Filtrar por nombre..."
+            onChange={(event) =>
+              setSearchName(event.target.value)
+            }
+            className="w-60"
+            />
+          </div>
+          {isForEditing ?
+          <div className="ml-auto flex gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="h-7 gap-1">
@@ -228,6 +241,8 @@ function TrabajadoresPage<search, isForEditing>({
             </Button>
           </div>
           : null}
+        </div>
+          
 
         <TrabajadoresDataTable
           columns={colTrabajadores(isForEditing , setShowObraConfig)}
@@ -252,6 +267,7 @@ function TrabajadoresPage<search, isForEditing>({
           : null}
       </div>}
   </>
+
 }
 
 export default TrabajadoresPage

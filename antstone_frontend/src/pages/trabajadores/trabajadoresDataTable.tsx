@@ -18,9 +18,6 @@ import {
 import { TrabajadorConfig } from "../../components/trabajadorConfig"
 import { Fragment, useEffect, useState } from "react"
 
-
-
-
 import { Button } from "../../components/ui/button"
 import { Checkbox } from "../../components/ui/checkbox"
 import * as React from "react"
@@ -87,7 +84,6 @@ export function TrabajadoresDataTable<TData, TValue, filteredStatus, filteredRol
         },
     })
 
-
     useEffect(() => {
         const filtrado = () => {
         table.getColumn("status")?.setFilterValue(filteredStatus)
@@ -108,19 +104,6 @@ export function TrabajadoresDataTable<TData, TValue, filteredStatus, filteredRol
 
     return (
         <Fragment>
-            
-            <div className="w-full">
-                <div className="flex items-center py-4">
-                    <Input
-                    placeholder="Filtrar por nombre..."
-                    value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn("name")?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                    />
-                </div>
-            </div>
             
             <Card x-chunk="dashboard-06-chunk-0">
                 <CardHeader>
