@@ -171,7 +171,7 @@ export function HomePage() {
               <Card x-chunk="dashboard-05-chunk-0">
                 <CardHeader className="pb-2">
                   <CardDescription>Este mes</CardDescription>
-                  <CardTitle className="text-4xl">Progreso de obras</CardTitle>
+                  <CardTitle className="text-4xl">Progreso de Tareas</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs mt-3 h-[250px] text-muted-foreground">
