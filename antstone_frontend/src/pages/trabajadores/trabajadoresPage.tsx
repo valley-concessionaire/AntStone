@@ -111,7 +111,6 @@ interface Props<search, isForEditing> {
   isForEditing: boolean
 }
 
-
 function TrabajadoresPage<search, isForEditing>({
   search,
   isForEditing
@@ -253,7 +252,6 @@ function TrabajadoresPage<search, isForEditing>({
           : null}
       </div>}
   </>
-
 }
 
 export default TrabajadoresPage

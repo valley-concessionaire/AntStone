@@ -29,8 +29,6 @@ export function LoginPage() {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const navigate = useNavigate();
-
   const onSubmit = async (e: any) => {
     e.preventDefault();
     setHasError(false);
@@ -50,7 +48,7 @@ export function LoginPage() {
       <div className="relative flex items-center justify-center py-12">
         {hasError &&
           <ASAlert message= {
-            "Error, el email o la contraseña son incorrectos."
+            "Error, el email o la contraseña son incorrectos."
           }
           />
         }
@@ -105,7 +103,6 @@ export function LoginPage() {
               <Button variant="outline" className="w-full">
                 Ingresar con Google
               </Button>
-
             </div>
           </div>
         </form>
