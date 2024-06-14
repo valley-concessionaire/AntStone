@@ -30,6 +30,7 @@ import Director from "./models/director"
 import { TareaDeObra } from "./models/tarea-obra"
 
 import { ProgressDemo } from "../../components/progressDemo"
+import LoadingIndicator from "../../../src/shared/components/LoadingIndicator"
 
 interface ObrasPageProps<search> {
   search: string
@@ -55,9 +56,10 @@ function ObrasPage<search> ({
   const [searchName, setSearchName] = useState("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [works, setWorks] = useState<Work | null>(null);
-  const [tareasByObras, setTareasByObras] = useState<TareaDeObra | null>(null);
+  const [tareasByObras, setTareasByObras] = useState<TareaDeObra[]>([]);
 
   const [position, setPosition] = useState("Todo")
+  const [loadingObra, setLoadingObra] = useState(false)
 
 
   useEffect(() => {
@@ -95,13 +97,16 @@ function ObrasPage<search> ({
 
   const handlerEditWork = async (visible: boolean, work: Work)  => {
     setWorks(work)
+    setLoadingObra(true)
     try {
        setWorks(work) 
        const tareaDeObra = await requests.get(GetTareasByObraIdEndpoint(work.id));
        setTareasByObras(tareaDeObra);
+       setLoadingObra(false)
        setShowObraConfig(visible);
     }
     catch (error) {
+      setLoadingObra(false)
       console.log(error)
     }
     
@@ -138,7 +143,13 @@ function ObrasPage<search> ({
 
   const Skeleton = () => <TableSkeleton />
 
-  return <>
+  return <div className="relative">
+  { loadingObra && 
+  <div className="absolute inset-0 flex items-center justify-center z-[1000]">
+    <LoadingIndicator />
+  </div>
+  }  
+  
     {isLoading ?
       Skeleton() :
     <div className="grid flex-1 items-start gap-2 sm:px-6 md:gap-4">
@@ -217,7 +228,7 @@ function ObrasPage<search> ({
         }
     </div>
   }
-  </>
+  </div>
 }
 
 export default ObrasPage;
