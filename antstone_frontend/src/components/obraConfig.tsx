@@ -50,53 +50,78 @@ import TrabajadoresPage from "../pages/trabajadores/trabajadoresPage"
 import { TareaConfig } from "./tareaConfig"
 import { TareaDeObra } from "../pages/obras/models/tarea-obra"
 import { Work } from "../pages/obras/obrasColumns"
+import formatDate from "../shared/utils/dates"
+import { useState } from "react"
+import Peon from "../pages/obras/models/peon"
 
 interface Props {
     obra: Work
-    tareas: TareaDeObra,
-    isVisible: boolean, 
+    tareas: TareaDeObra[],
+    isVisible: boolean,
     onClose: () => void,
     onSave: () => void
 }
 
 export function ObraConfig(
     {
-        isVisible, 
-        onClose, 
+        isVisible,
+        onClose,
         onSave,
         tareas,
         obra
     }: Props) {
-    
-    function addTaskRow(tasks: any) {
+
+    const peons = tareas.flatMap(tarea => {
+        return tarea.peones
+    })
+
+    const albaniles = tareas.flatMap(tarea => {
+        return tarea.ayudantes_de_albanil
+    })
+
+    const [ localState, setLocalState ] = useState<{
+    obra_name: string,
+    description: string
+    }>({
+        obra_name: obra.nombre,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia"
+    })
+
+
+    function handlerFieldChange(e: any) {
+        setLocalState({
+            ...localState,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    function addTaskRow(task: TareaDeObra) {
         return (
-        <TableRow>
-            <TableCell className="font-semibold">
-                {tasks[0] /*Nombre*/}
-            </TableCell>
-            <TableCell>
-                {tasks[1] /*Estado*/}
-            </TableCell>
-            <TableCell>
-                {tasks[2] /*Asignado a*/}
-            </TableCell>
-            <TableCell>
-                {tasks[3] /*Avances*/}
-            </TableCell>
-            <TableCell>
-                <Button variant="outline" className="h-8 w-8 p-0">
-                    <span className="sr-only">Open menu</span>
-                    <Pencil className="h-4 w-4"/>
-                </Button>
-            </TableCell>
-        </TableRow>
+            <TableRow>
+                <TableCell className="font-semibold">
+                    {task.nombre /*Nombre*/}
+                </TableCell>
+                <TableCell>
+                    {task.estado /*Estado*/}
+                </TableCell>
+                <TableCell>
+                    {task.descripcion /*Asignado a*/}
+                </TableCell>
+                <TableCell>
+                    {formatDate(task.fecha_inicio) /*Avances*/}
+                </TableCell>
+                <TableCell>
+                    <Button variant="outline" className="h-8 w-8 p-0">
+                        <span className="sr-only">Open menu</span>
+                        <Pencil className="h-4 w-4" />
+                    </Button>
+                </TableCell>
+            </TableRow>
         )
     }
-    
+
     const tas0 = ["Tarea 0", "En progreso", "Ermenejildo", 5]
     const tas2 = ["Tarea 2", "Terminada?", "Juana", 9]
-
-    const tass = [tas0, tas2]
 
 
     if (!isVisible) return null
@@ -104,18 +129,18 @@ export function ObraConfig(
         <div className="grid flex-1 transition ease-in items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 fixed inset-0 bg-black bg-opacity-75 backdrop-blur-md z-50 max-w-full max-h-full overflow-auto">
             <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4 m-4">
                 <div className="flex items-center gap-4">
-                <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0 text-white">
-                    { obra.nombre }
-                </h1>
-                <Badge variant="outline" className="ml-auto sm:ml-0 text-white">
-                    Inactiva
-                </Badge>
-                <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                    <Button variant="outline" size="sm" onClick={() => onClose()}>
-                    Descartar
-                    </Button>
-                    <Button  onClick={onSave} size="sm">Guardar cambios</Button>
-                </div>
+                    <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0 text-white">
+                        {obra.nombre}
+                    </h1>
+                    <Badge variant="outline" className="ml-auto sm:ml-0 text-white">
+                        { obra.estado.toUpperCase() }
+                    </Badge>
+                    <div className="hidden items-center gap-2 md:ml-auto md:flex">
+                        <Button variant="outline" size="sm" onClick={() => onClose()}>
+                            Descartar
+                        </Button>
+                        <Button onClick={onSave} size="sm">Guardar cambios</Button>
+                    </div>
                 </div>
                 <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
                     <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
@@ -123,7 +148,7 @@ export function ObraConfig(
                             <CardHeader>
                                 <CardTitle>Detalles de Obra</CardTitle>
                                 <CardDescription>
-                                Añada un nombre y una descripcion a la obra
+                                    Añada un nombre y una descripcion a la obra
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
@@ -131,8 +156,10 @@ export function ObraConfig(
                                     <div className="grid gap-3">
                                         <Label htmlFor="name">Nombre</Label>
                                         <Input
-                                            id="name"
-                                            value={obra.nombre}
+                                           onChange={handlerFieldChange}
+                                            id="obra_name"
+                                            name="obra_name"
+                                            value={localState.obra_name}
                                             type="text"
                                             className="w-full"
                                             defaultValue="Nombre de obra"
@@ -141,11 +168,13 @@ export function ObraConfig(
                                     <div className="grid gap-3">
                                         <Label htmlFor="description">Descripcion</Label>
                                         <Textarea
+                                            onChange={handlerFieldChange}
+                                            name="description"
                                             id="description"
                                             defaultValue="Describa la obra"
                                             className="min-h-32"
                                             value={
-                                                "The lorem ipsum is based on De finibus bonorum et malorum"
+                                                localState.description
                                             }
                                         />
                                     </div>
@@ -160,7 +189,7 @@ export function ObraConfig(
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
-                                
+
                                 <Table>
                                     <ScrollArea className="h-[200px]">
                                         <TableHeader>
@@ -172,114 +201,54 @@ export function ObraConfig(
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-                                                <TableRow>
-                                                    <TableCell className="font-semibold">
-                                                        Trabajador007
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Maestro
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Activo?
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        4
-                                                    </TableCell>
-                                                </TableRow>
+                                            {peons.map((peon) => (
 
                                                 <TableRow>
                                                     <TableCell className="font-semibold">
-                                                        Trabajador3
+                                                        {peon.first_name + " " + peon.last_name}
                                                     </TableCell>
                                                     <TableCell>
-                                                        Maestro
+                                                        {"Peon"}
                                                     </TableCell>
                                                     <TableCell>
-                                                        Activo?
+                                                        {peon.es_activo ? "Activo" : "Inactivo"}
                                                     </TableCell>
                                                     <TableCell>
-                                                        4
+                                                        {peon.id}
                                                     </TableCell>
                                                 </TableRow>
+                                            ))}
+
+
+                                            {albaniles.map((albanil) => (
 
                                                 <TableRow>
                                                     <TableCell className="font-semibold">
-                                                        Trabajador45
+                                                        {albanil.first_name + " " + albanil.last_name}
                                                     </TableCell>
                                                     <TableCell>
-                                                        Maestro
+                                                        {"Albañil"}
                                                     </TableCell>
                                                     <TableCell>
-                                                        Activo?
+                                                        {albanil.es_activo ? "Activo" : "Inactivo"}
                                                     </TableCell>
                                                     <TableCell>
-                                                        4
+                                                        {albanil.id}
                                                     </TableCell>
                                                 </TableRow>
+                                            ))}
 
-                                                <TableRow>
-                                                    <TableCell className="font-semibold">
-                                                        Trabajador11
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Maestro
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        Activo?
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        4
-                                                    </TableCell>
-                                                </TableRow>
-
-                                                <TableRow>
-                                                    <TableCell className="font-semibold">
-                                                        Trabajador2
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Label htmlFor="stock-2" className="sr-only">
-                                                        Stock
-                                                        </Label>
-                                                        <Input
-                                                        id="stock-2"
-                                                        type="number"
-                                                        defaultValue="143"
-                                                        />
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Label htmlFor="price-2" className="sr-only">
-                                                        Price
-                                                        </Label>
-                                                        <Input
-                                                        id="price-2"
-                                                        type="number"
-                                                        defaultValue="99.99"
-                                                        />
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <ToggleGroup
-                                                        type="single"
-                                                        defaultValue="m"
-                                                        variant="outline"
-                                                        >
-                                                        <ToggleGroupItem value="s">S</ToggleGroupItem>
-                                                        <ToggleGroupItem value="m">M</ToggleGroupItem>
-                                                        <ToggleGroupItem value="l">L</ToggleGroupItem>
-                                                        </ToggleGroup>
-                                                    </TableCell>
-                                                </TableRow>
-                                            
                                         </TableBody>
                                     </ScrollArea>
                                 </Table>
-                                
+
                             </CardContent>
                             <CardFooter className="justify-center border-t p-4">
 
                                 <Sheet>
                                     <SheetTrigger>
                                         <Button size="sm" variant="ghost" className="gap-1">
-                                            <PlusCircle className="h-3.5 w-3.5"/>
+                                            <PlusCircle className="h-3.5 w-3.5" />
                                             Añadir trabajador
                                         </Button>
                                     </SheetTrigger>
@@ -293,7 +262,7 @@ export function ObraConfig(
                                         </SheetHeader>
                                     </SheetContent>
                                 </Sheet>
-                                
+
                             </CardFooter>
                         </Card>
                         <Card x-chunk="dashboard-07-chunk-2">
@@ -311,64 +280,64 @@ export function ObraConfig(
                                             <TableRow>
                                                 <TableHead className="w-[100px]">Nombre</TableHead>
                                                 <TableHead>Estado</TableHead>
-                                                <TableHead>Asignado a</TableHead>
-                                                <TableHead>Avances</TableHead>
+                                                <TableHead>Descripción</TableHead>
+                                                <TableHead>Inicio</TableHead>
                                                 <TableHead className="w-[100px]"></TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         {false ?
-                                        <TableBody>
+                                            <TableBody>
 
-                                            <TableRow>
-                                                <TableCell className="font-semibold">
-                                                    Tarea 0
-                                                </TableCell>
-                                                <TableCell>
-                                                    En progreso
-                                                </TableCell>
-                                                <TableCell>
-                                                    Ermenejildo
-                                                </TableCell>
-                                                <TableCell>
-                                                    5
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Button variant="outline" className="h-8 w-8 p-0">
-                                                        <span className="sr-only">Open menu</span>
-                                                        <Pencil className="h-4 w-4"/>
-                                                    </Button>
-                                                </TableCell>
-                                            </TableRow>
+                                                <TableRow>
+                                                    <TableCell className="font-semibold">
+                                                        Tarea 0
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        En progreso
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Ermenejildo
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        5
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <Button variant="outline" className="h-8 w-8 p-0">
+                                                            <span className="sr-only">Open menu</span>
+                                                            <Pencil className="h-4 w-4" />
+                                                        </Button>
+                                                    </TableCell>
+                                                </TableRow>
 
-                                            <TableRow>
-                                                <TableCell className="font-semibold">
-                                                    Tarea 2
-                                                </TableCell>
-                                                <TableCell>
-                                                    Terminada?
-                                                </TableCell>
-                                                <TableCell>
-                                                    Juana
-                                                </TableCell>
-                                                <TableCell>
-                                                    9
-                                                </TableCell>
-                                            </TableRow>
+                                                <TableRow>
+                                                    <TableCell className="font-semibold">
+                                                        Tarea 2
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Terminada?
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        Juana
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        9
+                                                    </TableCell>
+                                                </TableRow>
 
-                                        </TableBody>
-                                        :
-                                        <TableBody>
-                                            {tass.map((unaTarea) => {
-                                                return (
-                                                    addTaskRow(unaTarea)
-                                                )
-                                            }
-                                            )}
-                                        </TableBody>
+                                            </TableBody>
+                                            :
+                                            <TableBody>
+                                                {tareas.map((tarea) => {
+                                                    return (
+                                                        addTaskRow(tarea)
+                                                    )
+                                                }
+                                                )}
+                                            </TableBody>
                                         }
                                     </ScrollArea>
                                 </Table>
-                                
+
                             </CardContent>
                             <CardFooter className="justify-center border-t p-4">
 
@@ -376,7 +345,7 @@ export function ObraConfig(
                                     <SheetTrigger>
                                         <Button size="sm" variant="ghost" className="gap-1">
                                             <PlusCircle className="h-3.5 w-3.5" />
-                                                Añadir tarea
+                                            Añadir tarea
                                         </Button>
                                     </SheetTrigger>
                                     <SheetContent className="w-full min-w-fit rounded-l-3xl">
@@ -385,7 +354,7 @@ export function ObraConfig(
                                             <SheetDescription>
                                                 Configure la tarea a añadir a la obra.
                                             </SheetDescription>
-                                            <TareaConfig/>
+                                            <TareaConfig />
 
                                         </SheetHeader>
                                     </SheetContent>
@@ -396,29 +365,29 @@ export function ObraConfig(
                     </div>
                     <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
                         <Card x-chunk="dashboard-07-chunk-4">
-                        <CardHeader>
-                            <CardTitle>Estado de la Obra</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="grid gap-6">
-                            <div className="grid gap-3">
-                                <Label htmlFor="status">Estado</Label>
-                                <Select>
-                                <SelectTrigger id="status" aria-label="Select status">
-                                    <SelectValue placeholder="Seleccione el estado" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="active">Activa</SelectItem>
-                                    <SelectItem value="inactive">Inactiva</SelectItem>
-                                    <SelectItem value="archived">Archivada</SelectItem>
-                                </SelectContent>
-                                </Select>
-                            </div>
-                            </div>
-                        </CardContent>
+                            <CardHeader>
+                                <CardTitle>Estado de la Obra</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="grid gap-6">
+                                    <div className="grid gap-3">
+                                        <Label htmlFor="status">Estado</Label>
+                                        <Select>
+                                            <SelectTrigger id="status" aria-label="Select status">
+                                                <SelectValue placeholder="Seleccione el estado" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="active">Activa</SelectItem>
+                                                <SelectItem value="inactive">Inactiva</SelectItem>
+                                                <SelectItem value="archived">Archivada</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                </div>
+                            </CardContent>
                         </Card>
                         <Card
-                        className="overflow-hidden" x-chunk="dashboard-07-chunk-5"
+                            className="overflow-hidden" x-chunk="dashboard-07-chunk-5"
                         >
                             <CardHeader>
                                 <CardTitle>Imagenes de Obra</CardTitle>

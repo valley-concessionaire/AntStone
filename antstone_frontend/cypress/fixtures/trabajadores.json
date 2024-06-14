@@ -1,0 +1,50 @@
+[
+    {
+        "id": 6,
+        "is_superuser": false,
+        "email": "capataz1@example.com",
+        "first_name": "Felipe",
+        "last_name": "Chavez",
+        "is_staff": false,
+        "is_active": true,
+        "es_activo": true,
+        "experiencia": "",
+        "certificaciones": ""
+    },
+    {
+        "id": 7,
+        "is_superuser": false,
+        "email": "capataz2@example.com",
+        "first_name": "Juana",
+        "last_name": "Stewart",
+        "is_staff": false,
+        "is_active": true,
+        "es_activo": true,
+        "experiencia": "",
+        "certificaciones": ""
+    },
+    {
+        "id": 28,
+        "is_superuser": false,
+        "email": "capataz3@example.com",
+        "first_name": "Camilo",
+        "last_name": "Nuñez",
+        "is_staff": false,
+        "is_active": true,
+        "es_activo": true,
+        "experiencia": "",
+        "certificaciones": ""
+    },
+    {
+        "id": 29,
+        "is_superuser": false,
+        "email": "capataz4@example.com",
+        "first_name": "Martin",
+        "last_name": "Casablanca",
+        "is_staff": false,
+        "is_active": true,
+        "es_activo": true,
+        "experiencia": "",
+        "certificaciones": ""
+    }
+]

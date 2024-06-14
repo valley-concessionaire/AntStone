@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import requests from "../shared/api/agent";
 import FormButton from "../shared/form/FormButton";
 import ASAlert from "../shared/form/ASAlert";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 
 export function LoginPage() {
@@ -45,12 +46,14 @@ export function LoginPage() {
 
   return (
     <div className="w-full h-scree h-screen h-screennn lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
-      <div className="relative flex items-center justify-center py-12">
+      <div className={`relative flex items-center justify-center py-12 }`}>
         {hasError &&
-          <ASAlert message= {
+        <div className={`invisible ${hasError ? "" : "invisible"}`}>
+ <ASAlert message= {
             "Error, el email o la contraseña son incorrectos."
           }
           />
+        </div>
         }
         <form
           onSubmit={onSubmit}>
