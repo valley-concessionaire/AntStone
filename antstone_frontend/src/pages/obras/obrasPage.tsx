@@ -105,25 +105,20 @@ function ObrasPage<search> ({
       console.log(error)
     }
     
-    
   }
-
-
-
 
   useEffect(() => {
     const filtraNombre = () => {
-      setSearchName(search)
+      setSearchName(search ?? '')
     };
 
     filtraNombre();
-}, [search])
+  }, [search])
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true)
       try {
-        const r = await requests.get(GetObrasEndpoint());
         const fetchedData = await requests.get(GetObrasEndpoint()); // Call your asynchronous function
         setData(fetchedData);
         setIsLoading(false)
@@ -170,8 +165,8 @@ function ObrasPage<search> ({
               <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
                 <DropdownMenuRadioItem onSelect={() => setstatusFilter("")} value="Todo">Todo</DropdownMenuRadioItem>
                 <DropdownMenuRadioItem onSelect={() => setstatusFilter("Pendiente")} value="Pendiente">Pendiente</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem onSelect={() => setstatusFilter("Procesando")} value="Procesando">Procesando</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem onSelect={() => setstatusFilter("Terminada")} value="Terminada">Terminada</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem onSelect={() => setstatusFilter("En Progreso")} value="En Progreso">En Progreso</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem onSelect={() => setstatusFilter("Completado")} value="Completado">Completado</DropdownMenuRadioItem>
                 <DropdownMenuRadioItem onSelect={() => setstatusFilter("Cancelada")} value="Cancelada">Cancelada</DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
             </DropdownMenuContent>
@@ -213,7 +208,8 @@ function ObrasPage<search> ({
             isVisible={showObraConfig}
             onClose={() => setShowObraConfig(false)}
             obra={works} 
-            tareas={tareasByObras}            />
+            tareas={tareasByObras}
+          />
         }
     </div>
   }

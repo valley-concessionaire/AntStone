@@ -36,7 +36,7 @@ export function NavbarMobile() {
                 </a>
                 <a
                   href="/trabajadores"
-                  className="flex items-center gap-4 px-2.5 text-foreground"
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground"
                 >
                   Trabajadores
                 </a>

@@ -78,12 +78,6 @@ export function LoginPage() {
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Contraseña</Label>
-                  <a
-                    href="/forgot-password"
-                    className="ml-auto inline-block text-sm underline"
-                  >
-                    Recuperar contraseña
-                  </a>
                 </div>
                 <Input
                   id="password"
@@ -99,10 +93,6 @@ export function LoginPage() {
                 isLoading={isLoading}
                 text="Iniciar sesión"
               />
-
-              <Button variant="outline" className="w-full">
-                Ingresar con Google
-              </Button>
             </div>
           </div>
         </form>

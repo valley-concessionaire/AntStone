@@ -38,75 +38,6 @@ export function TrabajadoresPage2() {
   )
 }
 
-async function getData(): Promise<Employee[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "jj212u98",
-      name: "Pepe",
-      status: false,
-      role: "Capataz",
-      asignments: 2,
-    },
-    {
-      id: "21hhs812",
-      name: "Juan",
-      status: true,
-      role: "Capataz",
-      asignments: 5,
-    },
-    {
-      id: "s299021s",
-      name: "Roberto",
-      status: false,
-      role: "Capataz",
-      asignments: 1,
-    },
-    {
-      id: "s289823",
-      name: "Maria",
-      status: true,
-      role: "Maestro",
-      asignments: 2,
-    },
-    {
-      id: "8s8a67gh1",
-      name: "Jonas",
-      status: true,
-      role: "Capataz",
-      asignments: 9,
-    },
-    {
-      id: "092jdj32",
-      name: "Sara",
-      status: false,
-      role: "Capataz",
-      asignments: 6,
-    },
-    {
-      id: "21908wu",
-      name: "Lorena",
-      status: true,
-      role: "Director de Obra",
-      asignments: 0,
-    },
-    {
-      id: "s92y7ye",
-      name: "Mario",
-      status: true,
-      role: "Capataz",
-      asignments: 3,
-    },
-    {
-      id: "21yhs79y2",
-      name: "Karla",
-      status: true,
-      role: "Gerente",
-      asignments: 2,
-    },
-  ]
-}
-
 interface Props<search, isForEditing> {
   search: string
   isForEditing: boolean
@@ -168,9 +99,7 @@ function TrabajadoresPage<search, isForEditing>({
   return <>
     {isLoading ?
       Skeleton() :
-      <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-        
-        
+      <div className="grid flex-1 items-start gap-2 sm:px-6 md:gap-1">
         <div className="flex items-center gap-2">
           <div className="flex items-center py-4">
             <Input
@@ -202,8 +131,6 @@ function TrabajadoresPage<search, isForEditing>({
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>
-
-
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="h-7 gap-1">
@@ -225,8 +152,6 @@ function TrabajadoresPage<search, isForEditing>({
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>
-
-
             <Button size="sm" variant="outline" className="h-7 gap-1">
               <File className="h-3.5 w-3.5" />
               <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
@@ -242,8 +167,6 @@ function TrabajadoresPage<search, isForEditing>({
           </div>
           : null}
         </div>
-          
-
         <TrabajadoresDataTable
           columns={colTrabajadores(isForEditing , setShowObraConfig)}
           data={data.map(employeeResponse => ({
@@ -258,8 +181,6 @@ function TrabajadoresPage<search, isForEditing>({
           searching={searchName}
           /** editingView={isForEditing}*/
           />
-          
-
         {isForEditing ? 
           <TrabajadorConfig
             isVisible={showObraConfig}
