@@ -1,7 +1,10 @@
+from users.serializers import DirectorDeObraSerializer, GerenteSerializer
 from rest_framework import serializers
 from .models import Obra, TareaDeObra, AvanceDeTarea, ImagenAvance
 
 class ObraSerializer(serializers.ModelSerializer):
+    director = DirectorDeObraSerializer()
+    gerente = GerenteSerializer()
     class Meta:
         model = Obra
         fields = '__all__'

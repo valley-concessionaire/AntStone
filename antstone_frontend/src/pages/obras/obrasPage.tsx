@@ -25,16 +25,29 @@ import { ObraConfig } from "../../components/obraConfig"
 import requests from "../../../src/shared/api/agent"
 import { GetObrasEndpoint, PostObrasEndpoint } from "../../../src/shared/api/api-urls"
 import TableSkeleton from "../../../src/shared/components/TableSkeleton"
+import Gerente from "./models/gerente"
+import Director from "./models/director"
 
 
 interface ObrasPageProps<search> {
   search: string
 }
 
+interface WorkResponse {
+  id: string
+  nombre: string,
+  fecha_inicio: string,
+  fecha_fin: string,
+  presupuesto: number,
+  estado: string,
+  gerente: Gerente,
+  director: Director
+}
+
 function ObrasPage<search> ({
   search
   }: ObrasPageProps<search>) {
-  const [data, setData] = useState<Work[] | null>(null); // Initialize data to null to avoid potential errors
+  const [data, setData] = useState<WorkResponse[] | null>(null); // Initialize data to null to avoid potential errors
   const [showObraConfig, setShowObraConfig] = useState(false)
   const [statusFilter, setstatusFilter] = useState("")
   const [searchName, setSearchName] = useState("")
@@ -165,7 +178,18 @@ function ObrasPage<search> ({
       </div>
       <ObrasDataTable 
         columns={colObras(handlerEditWork)} 
-        data={data??[]} 
+        data={data?.map((work) => (
+          {
+            id: work.id,
+            nombre: work.nombre,
+            fecha_inicio: work.fecha_inicio,
+            fecha_fin: work.fecha_fin,
+            presupuesto: work.presupuesto,
+            estado: work.estado,
+            director: work.director.first_name + " " + work.director.last_name,
+            gerente: work.gerente.first_name + " " + work.gerente.last_name
+          }
+        ))??[]} 
         filtered={statusFilter} 
         searching={searchName} />
       <ObraConfig 

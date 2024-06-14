@@ -7,6 +7,8 @@ import { Button } from "../../components/ui/button"
 import { Checkbox } from "../../components/ui/checkbox"
 import { Value } from "@radix-ui/react-select"
 import translateStatus from "./models/StatusTraslation"
+import Gerente from "./models/gerente"
+import Director from "./models/director"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -18,8 +20,8 @@ export type Work = {
     fecha_fin: string,
     presupuesto: number,
     estado: string,
-    gerente: number,
-    director: number
+    gerente: string,
+    director: string
 }
 
 export function colObras(trig:(b:boolean, work:Work) => void) {
@@ -61,14 +63,14 @@ export function colObras(trig:(b:boolean, work:Work) => void) {
             accessorKey: "estado",
             header: "Estado",
             cell: ({ row }) => (
-            <div className="capitalize">{ translateStatus (row.getValue("estado"))}</div>
+            <div className="capitalize">{ translateStatus(row.getValue("estado"))}</div>
             ),
         },
         {
-            accessorKey: "gerente",
+            accessorKey: "director",
             header: "Maestro",
             cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("gerente")}</div>
+            <div className="capitalize">{row.getValue("director")}</div>
             ),
         },
         {
@@ -111,7 +113,7 @@ export function colObras(trig:(b:boolean, work:Work) => void) {
                             <Pencil className="h-4 w-4"/>
                         </Button>
                         <Button variant="ghost" className="h-8 w-8 p-0" onClick={() => navigator.clipboard.writeText(work.id)}>
-                            ID
+                        {work.id}
                         </Button>
                     </div>
                 )
