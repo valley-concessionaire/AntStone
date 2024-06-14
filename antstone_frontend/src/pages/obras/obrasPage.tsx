@@ -152,7 +152,7 @@ function ObrasPage<search> ({
         <div >
           <div className="flex items-center ">
             <Input
-            placeholder="Filtrar por nombre..."
+            placeholder="Filtrar por nombre...2"
             onChange={(event) =>
               setSearchName(event.target.value)
             }
