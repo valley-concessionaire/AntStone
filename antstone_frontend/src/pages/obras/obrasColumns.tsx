@@ -6,15 +6,22 @@ import { ArrowUpDown, ChevronDown, MoreHorizontal, Pen, Pencil } from "lucide-re
 import { Button } from "../../components/ui/button"
 import { Checkbox } from "../../components/ui/checkbox"
 import { Value } from "@radix-ui/react-select"
+import translateStatus from "./models/StatusTraslation"
+import Gerente from "./models/gerente"
+import Director from "./models/director"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
+
 export type Work = {
-    id: string
-    name: string
-    cost: number
-    status: "pendiente" | "procesando" | "terminada" | "cancelada"
-    master: string
+    id: number
+    nombre: string,
+    fecha_inicio: string,
+    fecha_fin: string,
+    presupuesto: number,
+    estado: string,
+    gerente: string,
+    director: string
 }
 
 export function colObras(trig:(b:boolean, work:Work) => void) {
@@ -46,28 +53,28 @@ export function colObras(trig:(b:boolean, work:Work) => void) {
             enableHiding: false,
         },
         {
-            accessorKey: "name",
+            accessorKey: "nombre",
             header: "Nombre",
             cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("name")}</div>
+            <div className="capitalize">{row.getValue("nombre")}</div>
             ),
         },
         {
-            accessorKey: "status",
+            accessorKey: "estado",
             header: "Estado",
             cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("status")}</div>
+            <div className="capitalize">{ translateStatus(row.getValue("estado"))}</div>
             ),
         },
         {
-            accessorKey: "master",
+            accessorKey: "director",
             header: "Maestro",
             cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("master")}</div>
+            <div className="capitalize">{row.getValue("director")}</div>
             ),
         },
         {
-            accessorKey: "cost",
+            accessorKey: "presupuesto",
             header: ({ column }) => {
                 return (
                     <div>
@@ -82,7 +89,7 @@ export function colObras(trig:(b:boolean, work:Work) => void) {
                 )
             },
             cell: ({ row }) => {
-                const amount = parseFloat(row.getValue("cost"))
+                const amount = parseFloat(row.getValue("presupuesto"))
     
                 // Format the amount as a dollar amount
                 const formatted = new Intl.NumberFormat("en-US", {
@@ -105,8 +112,11 @@ export function colObras(trig:(b:boolean, work:Work) => void) {
                             <span className="sr-only">Open menu</span>
                             <Pencil className="h-4 w-4"/>
                         </Button>
-                        <Button variant="ghost" className="h-8 w-8 p-0" onClick={() => navigator.clipboard.writeText(work.id)}>
-                            ID
+                        <Button 
+                            variant="ghost" 
+                            className="h-8 w-8 p-0" 
+                            onClick={() => navigator.clipboard.writeText(`${work.id}`)}>
+                        {work.id}
                         </Button>
                     </div>
                 )

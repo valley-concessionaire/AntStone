@@ -48,8 +48,12 @@ import {
 
 import TrabajadoresPage from "../pages/trabajadores/trabajadoresPage"
 import { TareaConfig } from "./tareaConfig"
+import { TareaDeObra } from "../pages/obras/models/tarea-obra"
+import { Work } from "../pages/obras/obrasColumns"
 
 interface Props {
+    obra: Work
+    tareas: TareaDeObra,
     isVisible: boolean, 
     onClose: () => void,
     onSave: () => void
@@ -59,7 +63,9 @@ export function ObraConfig(
     {
         isVisible, 
         onClose, 
-        onSave
+        onSave,
+        tareas,
+        obra
     }: Props) {
     
     function addTaskRow(tasks: any) {
@@ -92,13 +98,14 @@ export function ObraConfig(
 
     const tass = [tas0, tas2]
 
+
     if (!isVisible) return null
     return (
         <div className="grid flex-1 transition ease-in items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 fixed inset-0 bg-black bg-opacity-75 backdrop-blur-md z-50 max-w-full max-h-full overflow-auto">
             <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4 m-4">
                 <div className="flex items-center gap-4">
                 <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0 text-white">
-                    Laser Lemonade Machine
+                    { obra.nombre }
                 </h1>
                 <Badge variant="outline" className="ml-auto sm:ml-0 text-white">
                     Inactiva
@@ -125,6 +132,7 @@ export function ObraConfig(
                                         <Label htmlFor="name">Nombre</Label>
                                         <Input
                                             id="name"
+                                            value={obra.nombre}
                                             type="text"
                                             className="w-full"
                                             defaultValue="Nombre de obra"
@@ -136,6 +144,9 @@ export function ObraConfig(
                                             id="description"
                                             defaultValue="Describa la obra"
                                             className="min-h-32"
+                                            value={
+                                                "The lorem ipsum is based on De finibus bonorum et malorum"
+                                            }
                                         />
                                     </div>
                                 </div>
